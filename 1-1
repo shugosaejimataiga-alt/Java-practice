@@ -1,0 +1,145 @@
+//基本文法
+
+// 整数型 (int)
+int age = 20;
+
+// 小数型 (double)
+double height = 170.5;
+
+// 真偽値型 (boolean)
+boolean isStudent = true;
+
+// 1文字 (char) ※シングルクォートで囲む
+char grade = 'A';
+
+// 文字列 (String) ※ダブルクォートで囲む
+String name = "Taro";
+
+
+//変数宣言: 型 名前;
+
+//変数の初期化: 型 名前 = 値;
+
+//final を付けると定数になる（再代入不可）。
+final double PI = 3.14159;  // 円周率（定数）
+
+問題1
+以下の条件を満たす変数を宣言して初期化してください。
+
+あなたの「年齢」を int 型で
+int age =42;
+あなたの「身長(cm)」を double 型で
+double height =159.2;
+あなたが「学生かどうか」を boolean 型で
+boolean isStudent =false;
+あなたの「イニシャル1文字」を char 型で
+char initial ='S';
+あなたの「名前」を String 型で
+String name ="unko";
+//文字列は必ず""で囲むこと
+
+
+
+
+
+
+定数（final） の練習をしましょう。
+問題2
+以下の定数を宣言してください。
+
+円周率を表す PI（型は double、値は 3.14159）
+final double PI=3.14159;
+消費税率を表す TAX_RATE（型は double、値は 0.1 = 10%）
+final double TAX_RATE =0.1
+👉 final を使って書いてみてください。
+
+
+
+//型変換
+//Javaでは 暗黙的型変換（自動） と 明示的型変換（キャスト） の2種類があります。
+
+//📘 基本文法
+
+//暗黙的型変換（小さい型 → 大きい型）
+int num = 10;
+double result = num;  // int → double に自動変換
+
+
+//明示的型変換（大きい型 → 小さい型）
+double pi = 3.14;
+int intPi = (int) pi;  // double → int に変換（小数点以下は切り捨て）
+
+「大きい・小さい」の基準
+Javaには 型の階層（型の幅 = 表現できる範囲と精度） が決まっています。
+小さい（情報量が少ない） → 大きい（情報量が多い）
+
+byte（1バイト）
+
+short（2バイト）
+
+char（2バイト, Unicode文字用）
+
+int（4バイト, 約21億まで）
+
+long（8バイト, 約9京まで）
+
+float（4バイト, 小数だけど精度低い）
+
+double（8バイト, 小数で高精度）
+
+👉 自動変換できる方向は、小さい → 大きいだけ
+（逆に大きい型 → 小さい型は情報が失われる可能性があるので、明示的キャストが必要）
+
+
+問題3
+
+次のように型変換してください。
+
+整数 int a = 7; 
+を double 型に暗黙的変換して b に代入してください。
+int a =7;
+double b =a;
+
+実数 double c = 9.99; 
+を int 型に明示的変換して d に代入してください。
+double c =9.99;
+int d =(int) c;
+👉 Javaコードで書いてみてください。
+
+
+
+
+総合問題
+
+問題4
+以下の条件を満たすJavaプログラムを書いてください。
+
+変数を使って、次の値を宣言してください。
+
+年齢（int 型、42）
+int age =42;
+身長（double 型、159.2）
+double height =159.2;
+学生かどうか（boolean 型、false）
+boolean isStudent =false;
+名前（String 型、"Taro"）
+String name ="Taro";
+定数 PI（double 型、3.14159）を宣言してください。
+final double PI =3.14159;
+
+身長を メートル に直した値（例: 159.2cm → 1.592m）を 暗黙的型変換 を使って double 型の変数 heightMeter に代入してください。
+double heightCentimeter =159.2;
+double heightMeter =heightCentimeter /100;
+
+heightCentimeter → double
+100 → int（リテラルはデフォルトでint型）
+👉 ここで double ÷ int が出てきたとき、Javaはこう判断します：
+「int のままじゃ精度が落ちる」
+「じゃあ自動で 100 を 100.0 (double) に変換しよう」
+これが 暗黙的型変換（int → double） です。
+結果は double ÷ double = double になります。
+
+
+heightMeter を int型 に 明示的型変換 し、小数点以下を切り捨てて heightInt に代入してください。
+double heightMeter =1.592;
+int heightInt =(int) heightMeter;

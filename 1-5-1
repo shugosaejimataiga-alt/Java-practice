@@ -1,0 +1,190 @@
+それでは 「配列：一次元配列の宣言・初期化」 を授業スタイルで進めていきましょう。
+まずは例文コードからです。
+
+📘 基本の書き方（例文）
+public class Main {
+    public static void main(String[] args) {
+        // 配列の宣言と初期化（例：int型の配列を5つ用意する）
+        int[] numbers = new int[5];
+
+        // 要素を代入（添字は0から始まる）
+        numbers[0] = 10;
+        numbers[1] = 20;
+        numbers[2] = 30;
+        numbers[3] = 40;
+        numbers[4] = 50;
+
+        // 要素を取り出して表示
+        System.out.println(numbers[0]); // 10
+        System.out.println(numbers[4]); // 50
+
+        // 宣言と同時に初期化する方法
+        int[] scores = {100, 90, 80, 70, 60};
+        System.out.println(scores[2]); // 80
+        
+        // 配列の要素数を表す
+        System.out.println(scores.length);
+    }
+}
+
+📌 解説
+int[] numbers = new int[5];
+int[] は「int型の配列」を意味します。
+
+new int[5] は「int型の要素を5個持つ配列を作る」という意味です。
+
+添字は 0から始まる ので、最後の要素は numbers[4] です。
+
+代入と取得
+numbers[0] = 10; 
+で最初の要素に 10 を代入。
+System.out.println(numbers[0]); 
+でその要素を表示。
+
+宣言と同時に初期化
+int[] scores = {100, 90, 80, 70, 60}; 
+のように、最初から値を入れることもできます。
+この場合、new int[5] は書かなくてもOKです。
+
+配列の要素数を出力する：配列変数.length を使います
+
+
+
+
+
+
+🎯 練習問題1
+次の要件を満たすコードを書いてください。
+int型の配列 ages を作成する（要素数3）
+3人分の年齢（例：18, 25, 30）を代入する
+最初と最後の要素を出力する
+
+public class Main {
+  public static void main (String[] args){
+
+    int [] ages =  new int [3];
+
+    ages [0] = 18;
+    ages [1] = 25;
+    ages [2] = 30;
+
+    System.out.println(ages[0]);
+    System.out.println(ages[2]);
+  }
+}
+
+
+public class Main {
+  public static void main (String[] args){
+    int [] ages = {18, 25, 30};
+    System.out.println(ages [0]);
+    System.out.println(ages [2]);
+  }
+}
+
+🌟 フィードバック
+配列の添字は0から始まる という点を理解できています。
+宣言後に代入する方法、宣言と同時に初期化する方法、両方とも習得できました。
+
+
+
+
+
+
+
+🎯 練習問題2（次の課題）
+String型の配列 fruits を作成する（要素数4）
+リンゴ, バナナ, ぶどう, メロン を代入する
+2番目と4番目の要素を出力する
+
+👉 コードを書いてみてください。
+
+public class Main {
+  public static void main (String[] args){
+    String [] fruits = {"リンゴ", "バナナ", "ブドウ", "メロン"};
+    System.out.println(fruits[1]);
+    System.out.println(fruits[3]);
+  }
+}
+
+🌟 フィードバック
+添字の番号（0始まり）を正しく理解できていますね。
+int型 だけでなく String型の配列 でも応用できています。
+これで 「一次元配列の宣言・初期化」 はしっかりマスターできました💯
+
+
+
+
+
+
+🎯 練習問題3（応用編）
+double型の配列 prices を作成（要素数5）
+100.5, 200.0, 150.75, 300.25, 50.0 を代入する
+最初の要素と最後の要素を出力する
+
+👉 書いてみましょう！
+
+public class Main {
+  public static void main (String[] args){
+    double [] prices = {100.5, 200.0, 150.75, 300.25, 50.0};
+    System.out.println(prices [0]);
+    System.out.println(prices [4]);
+  }
+}
+
+🌟 フィードバック
+int, String に続き double でも配列を扱えており、理解が安定しています。
+配列の添字の感覚（最初＝0、最後＝要素数-1）がしっかり身についていますね。
+
+
+
+
+
+
+
+🎯 最終テスト（この範囲の集大成）
+次の要件を満たすコードを書いてください。
+char型の配列 grades を作成し、'A', 'B', 'C', 'D', 'F' を代入する
+3番目の要素を出力する（期待値は 'C'）
+配列の要素数を出力する（ヒント：配列変数.length を使います）
+👉 これができれば「一次元配列の宣言・初期化」は合格です！
+
+public class Main {
+  public static void main (String[] args){
+    char [] grades = {'A', 'B', 'C', 'D', 'F'};
+    System.out.println(grades [2]);
+    System.out.println(grades.length);
+  }
+}
+
+🌟 フィードバック
+int / String / double / char すべての型で 一次元配列の宣言・初期化 をマスターしました。
+.length プロパティを使って配列のサイズを動的に取得できたのもバッチリです。
+
+
+
+
+
+
+
+
+🎯 応用問題（実力チェック）
+最後に少しだけ難しい問題に挑戦してみましょう。
+int型の配列 numbers を {1, 2, 3, 4, 5} で初期化する
+最初と最後の要素を足し算して出力する（期待値は 6）
+2番目と4番目の要素を掛け算して出力する（期待値は 8）
+
+👉 この問題ができれば「一次元配列の宣言・初期化」を自信を持って終了できます！
+
+public class Main {
+  public static void main (String[] args){
+    int [] numbers = {1, 2, 3, 4, 5};
+    System.out.println(numbers[0] + numbers[4]);
+    System.out.println(numbers[1] * numbers[3]);
+  }
+}
+
+🌟 フィードバック
+配列の添字の扱い → バッチリ習得済み
+四則演算と組み合わせて応用できる → OK
+一次元配列の宣言・初期化 → 合格！ 🎉

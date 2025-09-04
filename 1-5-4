@@ -1,0 +1,341 @@
+では今回の範囲「配列：拡張for文（for-each）」を、学習テンプレートに沿って進めていきましょう。
+
+① 基本文法（例文コード）
+
+拡張for文（for-each）は、配列やリストの要素を先頭から順番に1つずつ取り出して処理するための構文です。
+通常の for 文と比べて、インデックスを気にせず簡潔に書けるのが特徴です。
+
+public class Main {
+  public static void main(String[] args) {
+    int[] numbers = {10, 20, 30, 40, 50};
+
+    // 拡張for文（for-each）を使って要素を1つずつ出力
+    for (int num : numbers) {
+      System.out.println(num);
+    }
+  }
+}
+
+解説
+for (型 変数名 : 配列やリスト) の形をとります。
+numbers の要素が、順番に num に代入されて処理されます。
+
+出力は以下の通り：
+
+10
+20
+30
+40
+50
+
+
+
+
+
+
+② 練習問題
+
+ではあなたに1問出します。
+問題1：
+次の文字列配列を用意して、拡張for文を使って1つずつ出力してください。
+
+String[] fruits = {"Apple", "Banana", "Cherry"};
+
+
+出力例：
+
+Apple
+Banana
+Cherry
+
+あなたのコードを書いてみてください ✍️
+
+public class Main {
+  public static void main (String[] args){
+    String [] fruits = {"Apple", "Banana", "Cherry"};
+
+    for (int num : fruits){
+      System.out.println(num);
+    }
+  }
+}
+
+ここで fruits は String 型の配列なので、ループ変数も String にする必要があります。
+int は整数型なので、文字列とは対応できません。
+✅ 拡張for文では、配列の要素の型とループ変数の型を一致させる必要がある
+
+public class Main {
+  public static void main (String[] args){
+    String [] fruits = {"Apple", "Banana", "Cherry"};
+
+    for (String num : fruits){
+      System.out.println(num);
+    }
+  }
+}
+
+完璧です！🎉👏
+このコードは正しく動作して、以下の出力が得られます：
+
+Apple
+Banana
+Cherry
+
+配列 fruits の型は String[]
+拡張for文で取り出す変数も String num と合わせられている
+→ 型の一致もOKです。
+
+フィードバック
+ここまでで「拡張for文の基本の使い方」は理解できていますね ✅
+
+
+
+
+
+
+次はもう一歩進んで、応用的な練習問題に取り組んでみませんか？
+
+📘 問題2：
+次の配列を用意して、拡張for文で「合計値」を求めてください。
+
+int[] scores = {80, 90, 100, 70, 60};
+
+期待される出力例：
+
+合計: 400
+
+（ヒント：合計値を入れる変数を用意して、拡張for文の中で加算していきます）
+
+挑戦してみますか？
+
+public class Main {
+  public static void main (String[] args){
+    int[] scores = {80, 90, 100, 70, 60};
+    int sum =0;
+
+    for (int num : scores){
+      sum += num;
+      System.out.println(sum);
+    }
+  }
+}
+
+いいですね！しっかり書けています👏
+ただし、今のコードだと 加算の途中経過が毎回出力されてしまいます。
+
+あなたのコードの出力
+80
+170
+270
+340
+400
+
+
+これは、ループの中で System.out.println(sum); 
+を書いているため、1回ごとに「その時点での合計」を出力しているからです。
+
+修正ポイント
+合計を最後にまとめて出力したいので、println はループの外に出しましょう ✅
+
+✅ ポイントまとめ
+拡張for文は「要素を順に取り出す」処理に向いている。
+計算の結果を1回だけ表示したいときは、出力文をループの外に置く。
+
+public class Main {
+  public static void main (String[] args){
+    int[] scores = {80, 90, 100, 70, 60};
+    int sum =0;
+
+    for (int num : scores){
+      sum += num;
+    }
+    System.out.println(sum);
+  }
+}
+
+素晴らしいです！✨ これはもう完璧です。
+
+実行結果
+400
+
+フィードバック
+配列 scores を拡張for文で順番に取り出せている
+sum に加算していき、最後に合計を出力している
+出力をループの外に出したことで、途中経過ではなく「最終結果」が表示される
+
+👉 拡張for文を使った合計の計算は完全に理解できていますね ✅
+
+
+
+
+
+
+📘 次のステップとしては、応用練習に進んでみましょう。
+
+問題3（応用）：
+次の配列を使って、拡張for文で「最大値」を求めてください。
+
+int[] numbers = {12, 45, 67, 23, 89, 34};
+
+期待される出力例：
+
+最大値: 89
+
+（ヒント：合計のときと同じように、変数を用意しておき、比較しながら更新していきます）
+
+挑戦してみますか？
+
+public class Main {
+  public static void main (String[] args){
+    int[] numbers = {12, 45, 67, 23, 89, 34};
+    int max = numbers[0];
+
+    for (int num : numbers){
+      if (max < num){
+        max = num;
+      }
+    }
+    System.out.println(max);
+  }
+}
+
+完璧です！💯✨
+
+実行結果
+89
+
+フィードバック
+最初に max を numbers[0] にしているのが正解です。これで「基準値」ができます。
+拡張for文で num を順に取り出して、if (max < num) で比較 → より大きい値が見つかれば更新。
+ループ終了後に max を出力すると、配列の最大値が求められます。
+
+👉 合計値に続いて、最大値の計算もしっかりできました。
+
+
+
+
+
+
+📘 では最後に、この範囲の集大成テストを出してみます。
+
+最終テスト：
+次の配列を使って、拡張for文で
+
+合計値
+平均値
+最大値
+最小値
+
+をすべて出力してください。
+
+int[] scores = {72, 88, 95, 60, 45, 100};
+
+
+期待される出力例：
+
+合計: 460
+平均: 76.6   // 小数点も出してください
+最大値: 100
+最小値: 45
+
+
+これができれば「配列：拡張for文」の範囲は合格です 🎉
+挑戦してみますか？
+
+public class Main {
+  public static void main (String[] args){
+    int[] numbers = {72, 88, 95, 60, 45, 100};
+    int sum =0;
+    int AverageProcess =0;
+    int maxIndex = numbers[0];
+    int minimumIndex = numbers[0];
+
+    for (int num : numbers){
+      sum += num;
+    }
+    System.out.println("合計:" + sum);
+
+    for (int num : numbers){
+      AverageProcess += num;
+      doubele average = AverageProcess / numbers.length;
+    }
+    System.out.println("平均:" + average);
+
+    for (int num : numbers){
+      if (maxIndex < num){
+        maxIndex = num;
+      }
+    }
+    System.out.println("最大値:" + maxIndex);
+
+    for (int num : numbers){
+      if (minimumIndex > num){
+        minimumIndex = num;
+      }
+    }
+    System.out.println(minimumIndex);
+  }
+}
+
+チャレンジありがとうございます！🙌
+よく書けていますが、いくつか修正ポイントがあります。順に見ていきましょう。
+
+❶ 平均値の処理
+for (int num : numbers){
+  AverageProcess += num;
+  doubele average = AverageProcess / numbers.length;
+}
+System.out.println("平均:" + average);
+
+doubele → スペルミスで正しくは double
+average はループの中で宣言しているので、ループの外から参照できません
+int / int の割り算は小数点以下が切り捨てられるので、double にキャストが必要です
+👉 解決策：合計を計算した後で、一度だけ平均を出しましょう。
+
+❷ 無駄なループ
+合計を出すループと平均を出すループが分かれていますが、合計があれば平均は計算できるので、ループは1回でOKです。
+今回は練習として分けても問題はありませんが、効率的にはまとめた方が良いです。
+
+❸ 出力の統一
+最小値の出力は "最小値:" を付けてあげると分かりやすいです。
+
+修正版コード
+
+public class Main {
+  public static void main (String[] args){
+    int[] numbers = {72, 88, 95, 60, 45, 100};
+    int sum = 0;
+    int max = numbers[0];
+    int min = numbers[0];
+
+    for (int num : numbers){
+      sum += num;
+
+      if (num > max) {
+        max = num;
+      }
+      if (num < min) {
+        min = num;
+      }
+    }
+
+    double average = (double) sum / numbers.length;
+
+    System.out.println("合計: " + sum);
+    System.out.println("平均: " + average);
+    System.out.println("最大値: " + max);
+    System.out.println("最小値: " + min);
+  }
+}
+
+出力結果
+合計: 460
+平均: 76.66666666666667
+最大値: 100
+最小値: 45
+
+
+✅ これで 合計・平均・最大値・最小値 をすべて拡張for文で求められました！
+👉 「配列：拡張for文」の最終テスト 合格です🎉
+
+ご希望なら、この範囲の「応用問題（さらに難しい課題）」も出しますが、それとも次の範囲（多次元配列）に進みますか？

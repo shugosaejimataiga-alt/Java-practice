@@ -1,0 +1,279 @@
+今回は 条件分岐の switch文（break / default） を学習範囲としますね。
+授業の流れに沿って進めます。
+
+📘 基本文法の説明（例文コード）
+
+public class Main {
+    public static void main(String[] args) {
+        int day = 3;
+
+        // switch文の基本構文
+        switch (day) {
+            case 1:
+                System.out.println("月曜日です");
+                break;
+            case 2:
+                System.out.println("火曜日です");
+                break;
+            case 3:
+                System.out.println("水曜日です");
+                break;
+            case 4:
+                System.out.println("木曜日です");
+                break;
+            case 5:
+                System.out.println("金曜日です");
+                break;
+            default:
+                System.out.println("土日です");
+        }
+    }
+}
+
+
+✅ ポイント解説
+switch (変数) … 条件に使う変数を指定
+case 値: … その値と一致した場合の処理を書く
+break; … そのケースの処理が終わったらスイッチ文を抜ける
+default: … どの case にも当てはまらなかった場合の処理
+
+
+
+📝 練習問題1
+「1〜4の数字で季節を判定するプログラム」を作ってください。
+1 → 「春です」
+2 → 「夏です」
+3 → 「秋です」
+4 → 「冬です」
+それ以外 → 「不明な季節です」
+
+まずはこの問題に挑戦してみてください！
+
+public class Main {
+  public static void main (String[] args){
+    int weather =9;
+
+    switch (weather) {
+      case 1:
+      System.out.println("春です");
+      break;
+
+      case 2:
+      System.out.println("夏です");
+      break;
+
+      case 3:
+      System.out.println("秋です");
+      break;
+
+      case 4:
+      System.out.println("冬です");
+      break;
+
+      default:
+      System.out.println("不明な季節です");
+    }
+  }
+}
+
+❌ 間違いポイント
+
+クラス定義の括弧
+public class Main (   // ← ( ではなく { が必要
+
+mainメソッドの宣言
+public class void main (String[] args)  // ← class は不要、正しくは public static void main
+
+変数の代入
+int weather = 鬱;  // ← Javaは日本語の文字を直接代入できません
+
+👉 数字（例: 1）を代入しましょう。
+
+case文の書き方
+case 1;   // ← セミコロン(;)ではなくコロン(:)
+
+💡 補足
+
+case 値: ← コロンを使う
+break; ← ないと次の case に処理が流れてしまう
+default: ← どれにも当てはまらない場合に実行される
+
+______________________
+
+完璧です！💯✨
+文法的にも動作的にも正しく書けています。
+このコードを実行すると weather = 9 なので default に入り、
+
+不明な季節です
+と表示されます。
+
+✅ 良いポイント
+
+public class Main { ... } のクラス宣言が正しい
+public static void main(String[] args) が正しく書けている
+case の後にコロン : を正しく使えている
+break; を各ケースに入れている（必須）
+default: でその他の場合を処理している
+
+
+
+
+📝 次の練習問題2
+今度は「点数によって成績を判定するプログラム」を switch 文で作ってみましょう。
+
+仕様は次の通りです：
+100 → 「満点です！」
+90 → 「A判定」
+80 → 「B判定」
+70 → 「C判定」
+60 → 「D判定」
+それ以外 → 「不合格」
+
+👉 ぜひコードを書いてみてください！
+
+int score = 30;
+
+switch (score) {
+  case 100:
+  System.out.println("満点です");
+  break;
+
+  case 90:
+  System.out.println("A判定");
+  break;
+
+  case 80:
+  System.out.println("B判定");
+  break;
+
+  case 70:
+  System.out.println("C判定");
+  break;
+
+  case 60:
+  System.out.println("D判定");
+  break;
+
+  default:
+  System.out.println("不合格");
+}
+
+💡 実行結果
+score = 30; の場合は、どの case にも一致しないので default が実行され、
+
+不合格
+と表示されます 👍
+
+
+
+👉 では質問です：
+もし score = 75; にしたら、このプログラムはどう動きますか？
+
+defaultです。どこにも当てはまっていないから。以上とか以下とかなく、その数字に当てはまっているかを聞いているものだから
+
+
+その通りです！💯✨
+とても正確に理解できています。
+
+switch 文は 「その数値と完全に一致するかどうか」 を判定します。
+なので score = 75; の場合、どの case（100, 90, 80, 70, 60）にも一致しないので、default が実行されます。
+
+✅ まとめ（if文との違い）
+if / else if → 「以上」「以下」「範囲」など 条件式 を自由に書ける
+switch → 特定の値に一致するかどうか を判定
+
+
+
+
+👉 では次に、練習問題3を出します。
+
+📝 練習問題3
+
+曜日を番号で判定するプログラムを switch で書いてください。
+1 → 「日曜日」
+2 → 「月曜日」
+3 → 「火曜日」
+4 → 「水曜日」
+5 → 「木曜日」
+6 → 「金曜日」
+7 → 「土曜日」
+
+それ以外 → 「不明な曜日です」
+
+int day = ...; から書いてみてください 👍
+
+int day = 3;
+
+switch (day) {
+  case 1:
+  System.out.println("日曜日");
+  break;
+
+  case 2:
+  System.out.println("月曜日");
+  break;
+
+  case 3:
+  System.out.println("火曜日");
+  break;
+
+  case 4:
+  System.out.println("水曜日");
+  break;
+
+  case 5:
+  System.out.println("木曜日");
+  break;
+
+  case 6:
+  System.out.println("金曜日");
+  break;
+
+  case 7:
+  System.out.println("土曜日");
+  break;
+
+  default:
+  System.out.println("不明な曜日です");
+}
+
+完璧です！💯✨
+曜日を switch 文できれいに分岐できています。
+case ごとに break; 
+も正しく書けています。
+default で想定外の数字を処理できているのも素晴らしいです。
+
+✅ 実行結果
+
+今回 day = 3; 
+なので、実行すると
+
+火曜日
+
+と出力されます 👍
+
+📘 ここまでの学び
+switch は「値が一致するかどうか」を判定する
+if との違いは「範囲条件が書けるかどうか」
+break; 
+を忘れると、次の case に処理が流れる
+
+
+あなたのコードを何度も見せてもらった限り、switch文の仕組みは十分に理解できていると判断します 👍✨
+
+理由は以下の通りです：
+
+文法エラーを修正できている
+　最初は case 1; 
+のような誤りがありましたが、指摘後すぐに正しく直せています。
+
+default の役割を正しく説明できている
+　score = 75; 
+のときに「どこにも当てはまらないから default が実行される」と説明できていました。これは理解が深い証拠です。
+
+曜日のプログラムを完璧に書けている
+　7つの case と default を漏れなく実装し、正しく break を入れられていました。
+
+✅ 結論
+
+「switch文（break / default）」の基本は 合格レベル です！🎉
