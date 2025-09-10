@@ -1,0 +1,271 @@
+今回の範囲は ステップ1-6：ArrayList → 要素数（size()） ですね。
+それではテンプレートに沿って進めていきましょう。
+
+📘 基本の書き方（例文コード）
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        
+        ArrayListを作成（文字列を格納する例）
+        ArrayList<String> fruits = new ArrayList<>();
+
+        要素を追加
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Orange");
+
+        ArrayListの要素数を確認
+        System.out.println("要素数: " + fruits.size());
+
+        確認として中身も出力
+        System.out.println("中身: " + fruits);
+    }
+}
+
+📝 ポイント解説
+
+fruits.size()
+→ ArrayListに入っている「要素の数」を返す。
+
+今回の例だと、3 が出力されます。
+
+🔨 練習問題①
+次の要件を満たすコードを書いてください。
+ArrayList<Integer> を使う
+好きな整数を 5つ追加 する
+要素数（size）を出力する
+
+まずはこちらに挑戦してみてください。
+あなたがコードを書いたら、私が正誤を確認してフィードバックします。
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArruList<Integer> LikeInteger = new ArrayList<>();
+
+    LikeInteger.add(1);
+    LikeInteger.add(2);
+    LikeInteger.add(3);
+    LikeInteger.add(4);
+    LikeInteger.add(5);
+
+    System.out.println("要素数:" + LikeInteger.size());
+  }
+}
+ArruList<Integer> になっていますが、正しくは ArrayList<Integer> です。
+（スペルミスが原因でコンパイルエラーになります）
+
+
+修正版：
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<Integer> LikeInteger = new ArrayList<>();
+
+    LikeInteger.add(1);
+    LikeInteger.add(2);
+    LikeInteger.add(3);
+    LikeInteger.add(4);
+    LikeInteger.add(5);
+
+    System.out.println("要素数:" + LikeInteger.size());
+  }
+}
+🎯 実行結果（期待値）
+要素数:5
+
+完璧に要件を満たしていますね！👏
+
+
+
+
+
+
+🔨 練習問題②
+次の要件を満たすコードを書いてください。
+ArrayList<String> を使う
+好きな文字列を 3つ追加 する（例：動物、食べ物、国の名前など自由）
+要素数（size）を出力する
+
+期待される出力例
+要素数:3
+
+（※追加する文字列の内容は自由です！）
+
+✍️ では、コードを書いてみてください。
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<String> LikeString = new ArrayList<>();
+
+    LikeString.add("冴島大河");
+    LikeString.add("桐生一馬");
+    LikeString.add("真島吾郎");
+
+    System.out.prrintln("要素数:" + LikeString.size());
+  }
+}
+❌ エラー箇所
+System.out.prrintln("要素数:" + LikeString.size());
+prrintln になっており、println が正解です。
+
+
+修正版：
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<String> LikeString = new ArrayList<>();
+
+    LikeString.add("冴島大河");
+    LikeString.add("桐生一馬");
+    LikeString.add("真島吾郎");
+
+    System.out.println("要素数:" + LikeString.size());
+  }
+}
+🎯 実行結果
+要素数:3
+
+完璧です！
+冴島・桐生・真島と「龍が如く」トリオで来ましたね😆 とても良い例です。
+
+
+
+
+
+
+🔨 練習問題③
+次の要件を満たすコードを書いてください。
+ArrayList<Double> を使う
+小数の数値を 4つ追加 する（例：3.14, 1.5, 2.7 など自由）
+for文 を使って、すべての要素を1つずつ表示する
+最後に size() を使って要素数を出力する
+
+出力例（例として3.14, 1.5, 2.7, 4.0を入れた場合）
+3.14
+1.5
+2.7
+4.0
+要素数:4
+
+
+✍️ では、コードを書いてみてください！
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<Double> decimal = new ArrayList<>();
+
+    decimal.add(3.14);
+    decimal.add(1.5);
+    decimal.add(2.7);
+    decimal.add(4.0);
+
+    for (int i =0; i < decimal.size(); i++){
+      System.out.println(decimal.get(i));
+    }
+
+    System.out.println("要素数:" + decimal.size())
+  }
+}
+❌ エラー箇所
+System.out.println("要素数:" + decimal.size())
+行末にセミコロン ; が必要です。
+
+
+修正版：
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<Double> decimal = new ArrayList<>();
+
+    decimal.add(3.14);
+    decimal.add(1.5);
+    decimal.add(2.7);
+    decimal.add(4.0);
+
+    for (int i = 0; i < decimal.size(); i++){
+      System.out.println(decimal.get(i));
+    }
+
+    System.out.println("要素数:" + decimal.size());
+  }
+}
+🎯 実行結果（例）
+3.14
+1.5
+2.7
+4.0
+要素数:4
+
+✨ これで 練習問題①〜③すべて合格 です！
+
+
+
+
+📝 最終テスト課題
+次の要件を満たすコードを書いてください。
+ArrayList<String> を作成する
+好きな文字列を 5つ追加 する
+その後、要素を 1つ削除 する
+for文 を使ってすべての要素を表示する
+最後に size() を使って要素数を出力する
+
+実行イメージ（例）
+Apple
+Banana
+Orange
+Grape
+要素数:4
+
+
+（※最初に5つ追加 → 1つ削除 → 残り4つ → sizeは4 と出るはずです）
+
+✍️ では、この最終テストのコードを書いてみてください！
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<String> LikeString = new ArrayList<>();
+
+    LikeString.add("あ");
+    LikeString.add("い");
+    LikeString.add("う");
+    LikeString.add("え");
+    LikeString.add("お");
+
+    LikeString.remove(2);
+
+    for (int i =0; i < LikeString.size(); i++){
+      System.out.println(LikeString.get(i));
+    }
+
+    System.out.println("要素数:" + LikeString.size());
+  }
+}
+素晴らしいです！👏
+最終テストの要件をすべて満たしています。
+5つ追加 → 1つ削除 → 残り4つ、OKです。
+for文 で中身をループ出力 → 正しく書けています。
+最後に size() を出力 → 完璧です。
+
+🎯 実行結果（期待値）
+あ
+い
+え
+お
+要素数:4
+
+🌟 フィードバック
+コードの構文も正確 ✅
+add / remove / size / for文 の組み合わせを理解できている ✅
+今回の範囲「ArrayList → size()」は 合格です！🎉
