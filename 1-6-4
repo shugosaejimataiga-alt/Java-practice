@@ -1,0 +1,725 @@
+今回は ステップ1 → 6. ArrayList → ループとの併用 が学習範囲ですね。
+ではルール通りに進めます。
+
+① 基本の書き方（例文コード）
+import java.util.ArrayList;
+
+public class Main {
+  public static void main(String[] args) {
+    
+    ArrayListの宣言と初期化
+    ArrayList<String> fruits = new ArrayList<>();
+
+    要素を追加
+    fruits.add("Apple");
+    fruits.add("Banana");
+    fruits.add("Orange");
+
+    for文と組み合わせて出力
+    for (int i = 0; i < fruits.size(); i++) {
+      System.out.println("インデックス " + i + ": " + fruits.get(i));
+    }
+
+    拡張for文（for-each）でも繰り返し処理が可能
+    for (String fruit : fruits) {
+      System.out.println("フルーツ名: " + fruit);
+    }
+  }
+}
+
+ポイント解説
+ArrayList<String> fruits = new ArrayList<>();
+→ 文字列（String）のリストを作成
+
+fruits.size()
+→ 要素数を取得（配列の .length と同じ役割）
+
+fruits.get(i)
+→ i番目の要素を取得
+
+for (String fruit : fruits)
+→ 拡張for文：コレクションの全要素を順番に処理する
+
+
+
+
+
+
+② 練習問題（あなたが解く番です）
+次の課題に挑戦してください👇
+
+問題
+好きな動物を5つ ArrayList に追加してください。
+その後、for文 と 拡張for文 の両方を使って動物を出力してください。
+
+コードを書いていただいたら、私が正誤をチェックしてフィードバックします。
+👉 ではどうぞ！
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArryList<String> LikeAnimals = new ArryList<>();
+
+    LikeAnimals.add("Tiger");
+    LikeAnimals.add("Lion");
+    LikeAnimals.add("Fox");
+    LikeAnimals.add("Dog");
+    LikeAnimals.add("Cat");
+
+    for (int i =0; i < LikeAnimals.size(); i++){
+      System.out.println(LikeAnimals.get(i));
+    }
+
+    for (String LikeAnimal : LikeAnimals){
+      System.out.println("好きな動物の名前:" + LikeAnimal);
+    }
+  }
+}
+❌ 修正点
+
+ArryList → ArrayList
+→ スペルミスでコンパイルエラーになります。
+正しくは ArrayList です。
+
+import文
+すでに import java.util.ArrayList; を書いているので問題なしですが、
+そのままでOKです。
+
+
+修正版：
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    // ArrayList のスペル修正
+    ArrayList<String> LikeAnimals = new ArrayList<>();
+
+    LikeAnimals.add("Tiger");
+    LikeAnimals.add("Lion");
+    LikeAnimals.add("Fox");
+    LikeAnimals.add("Dog");
+    LikeAnimals.add("Cat");
+
+    通常のfor文
+    for (int i = 0; i < LikeAnimals.size(); i++) {
+      System.out.println(LikeAnimals.get(i));
+    }
+
+    拡張for文
+    for (String LikeAnimal : LikeAnimals) {
+      System.out.println("好きな動物の名前: " + LikeAnimal);
+    }
+  }
+}
+👍 評価
+配列と違って .size() を使えている → OK
+通常のfor文 と 拡張for文 の両方を正しく使えている → OK
+出力も目的通りに書けている → OK
+
+
+
+
+
+
+問題②
+好きな数字（int型）を5つ ArrayList に追加してください。
+その後、for文 を使ってすべての数字を出力し、さらに 拡張for文 を使って「合計値」を計算して出力してください。
+
+準備はできていますか？👉 コードを書いてみてください。
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (Stirng[] args){
+    ArrauList<Integer> LikeNumbers = new ArrayList<>();
+
+    LikeNumbers.add(1);
+    LikeNumbers.add(2);
+    LikeNumbers.add(3);
+    LikeNumbers.add(4);
+    LikeNumbers.add(5);
+    
+    for (int i =0; i < LikeNumbers.size(); i++){
+      System.out.println(LikeNumbers.get(i));
+    }
+
+    int sum =0;
+    for (Integer LikeNumber : LikeNumbers){
+      sum += LikeNumber;
+      System.out.println(sum);
+    }
+  }
+}
+❌ 修正点
+
+Stirng → String
+mainメソッドの引数の型のスペルミスです。
+
+ArrauList → ArrayList
+クラス名のスペルミスです。
+
+合計値の出力の場所
+拡張for文の中で System.out.println(sum); と書いているため、
+「1 → 3 → 6 → 10 → 15」と途中経過が出ています。
+
+問題文の意図は「最終的な合計を出す」なので、
+ループの外で出力すればOKです。
+
+
+修正版：
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    
+    ArrayList の宣言と初期化
+    ArrayList<Integer> LikeNumbers = new ArrayList<>();
+
+    LikeNumbers.add(1);
+    LikeNumbers.add(2);
+    LikeNumbers.add(3);
+    LikeNumbers.add(4);
+    LikeNumbers.add(5);
+    
+    通常のfor文で出力
+    for (int i = 0; i < LikeNumbers.size(); i++) {
+      System.out.println(LikeNumbers.get(i));
+    }
+
+    拡張for文で合計を計算
+    int sum = 0;
+    for (Integer LikeNumber : LikeNumbers) {
+      sum += LikeNumber;
+    }
+
+    合計値をループの外で出力
+    System.out.println("合計値: " + sum);
+  }
+}
+👍 評価
+ArrayList<Integer> を使えている → OK
+for文 と 拡張for文 を正しく使えている → OK
+合計値の計算ロジック もOK（出力場所だけ修正すれば完璧）
+
+👉 この修正版を実行すれば、
+
+1
+2
+3
+4
+5
+合計値: 15
+
+と出力されます。
+
+
+
+
+
+
+📝 練習問題③
+好きな整数を 10 個 ArrayList に追加してください。
+そのあと以下を実装してください：
+for文 を使って すべての数 を出力する。
+拡張for文 を使って 偶数だけ を出力する。
+
+ヒント
+偶数判定には num % 2 == 0 を使います。
+（2で割った余りが0なら偶数）
+
+👉 では、あなたのコードを書いてみてください！
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (Stirng[] args){
+    ArrayList<Integer> LikeIntegers = new ArrayList<>();
+
+    LikeIntegers.add(1);
+    LikeIntegers.add(2);
+    LikeIntegers.add(3);
+    LikeIntegers.add(4);
+    LikeIntegers.add(5);
+    LikeIntegers.add(6);
+    LikeIntegers.add(7);
+    LikeIntegers.add(8);
+    LikeIntegers.add(9);
+    LikeIntegers.add(10);
+
+    for (int i =0; i < LikeIntegers.size(); i++){
+      System.out.println(LikeIntegers.get(i));
+    }
+
+    for (Integer LikeInteger : LikeIntegers){
+      if (LikeInteger % 2 == 0){
+        System.out.println(LikeInteger);
+      }
+    }
+  }
+}
+❌ 修正点（細かいところ）
+
+Stirng → String
+mainメソッドの引数型のスペルミス。
+→ これがあるとコンパイルエラーになります。
+
+
+修正版：
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<Integer> LikeIntegers = new ArrayList<>();
+
+    LikeIntegers.add(1);
+    LikeIntegers.add(2);
+    LikeIntegers.add(3);
+    LikeIntegers.add(4);
+    LikeIntegers.add(5);
+    LikeIntegers.add(6);
+    LikeIntegers.add(7);
+    LikeIntegers.add(8);
+    LikeIntegers.add(9);
+    LikeIntegers.add(10);
+
+    for文ですべての数を出力
+    for (int i = 0; i < LikeIntegers.size(); i++) {
+      System.out.println(LikeIntegers.get(i));
+    }
+
+    拡張for文で偶数だけ出力
+    for (Integer LikeInteger : LikeIntegers) {
+      if (LikeInteger % 2 == 0) {
+        System.out.println("偶数: " + LikeInteger);
+      }
+    }
+  }
+}
+評価
+ArrayListに10個の整数を入れる → OK
+for文で全出力 → OK
+拡張for文＋if文で偶数のみ出力 → OK
+条件式 num % 2 == 0 の理解 → OK
+
+
+
+
+
+🎓 最終テスト（合格するまで繰り返し）
+
+問題
+次の仕様を満たすプログラムを書いてください。
+整数を10個 ArrayList に追加する（好きな値でOK）。
+for文 を使って、すべての数を出力する。
+拡張for文 を使って「奇数だけ」を出力する。
+拡張for文 を使って「すべての数の合計値」を計算して出力する。
+
+出力イメージ（例）
+※ 数字はあなたが追加した内容次第で変わります。
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+奇数: 1
+奇数: 3
+奇数: 5
+奇数: 7
+奇数: 9
+合計値: 55
+
+
+👉 では、あなたのコードを書いてみてください！
+偶数と奇数の判定は、割った余り（% 演算子） を使います。
+偶数 → num % 2 == 0
+奇数 → num % 2 != 0（または num % 2 == 1）
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<Integer> Integers = new ArrayList<>();
+
+    Integers.add(1);
+    Integers.add(2);
+    Integers.add(3);
+    Integers.add(4);
+    Integers.add(5);
+    Integers.add(6);
+    Integers.add(7);
+    Integers.add(8);
+    Integers.add(9);
+    Integers.add(10);
+
+    int sum =0;
+
+    for (int i =0; i < Integers.size(); i++){
+      System.out.println(Integers.get(i));
+      sum += Integers.size(i);
+    }
+
+    for (Integer Integer : Integers){
+      if (Integer % 2! == 0){
+        System.out.println(Integer);
+      }
+      sum += Integer;
+    }
+
+    System.out.println(sum);
+  }
+}
+❌ 修正点
+
+sum += Integers.size(i); は存在しないメソッド
+Integers.size() は「要素数」を返すだけです。
+i番目の要素を取り出すには Integers.get(i) を使います。
+
+奇数判定の条件
+if (Integer % 2! == 0) は文法エラーになります。
+正しくは if (Integer % 2 != 0) です。
+
+合計の計算が2回されている
+for文の中と拡張for文の中で両方 sum を足しているため、2倍になります。
+合計計算は 拡張for文で1回だけ にしてください。
+
+出力内容
+問題文では「奇数だけ」を出力する部分と「合計値」を出力する部分を分けていました。
+まとめると読みやすくなります。
+
+
+修正版：
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<Integer> Integers = new ArrayList<>();
+
+    整数を10個追加
+    Integers.add(1);
+    Integers.add(2);
+    Integers.add(3);
+    Integers.add(4);
+    Integers.add(5);
+    Integers.add(6);
+    Integers.add(7);
+    Integers.add(8);
+    Integers.add(9);
+    Integers.add(10);
+
+    for文ですべての数を出力
+    for (int i = 0; i < Integers.size(); i++) {
+      System.out.println(Integers.get(i));
+    }
+
+    拡張for文で奇数だけ出力 & 合計を計算
+    int sum = 0;
+    for (Integer num : Integers) {
+      if (num % 2 != 0) {
+        System.out.println("奇数: " + num);
+      }
+      sum += num;
+    }
+
+    合計値を出力
+    System.out.println("合計値: " + sum);
+  }
+}
+📝 出力例
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+奇数: 1
+奇数: 3
+奇数: 5
+奇数: 7
+奇数: 9
+合計値: 55
+
+👍 評価
+ArrayListへの追加：OK
+for文で全出力：OK
+奇数判定の考え方：惜しい！（!= の書き方ミス）
+合計値の計算：ロジックは理解できているが場所の整理が必要
+
+
+疑問：
+    int sum = 0;
+    for (Integer num : Integers) {
+      if (num % 2 != 0) {
+        System.out.println("奇数: " + num);
+      }
+      sum += num;
+    }
+←これって1から10までの数と、奇数だけの合計ではないですよね？
+なぜ、これは1から10までの合計が出るのですか？
+これはif文で奇数だけを出力した【】というんでしたっけ？クラスではなく、この単位の事。まあ、この単位の外の拡張for文のところでsum += numをしているから、for文だけで出力する1から10までの数を合計しているという認識ですか？
+
+ChatGPT:
+めちゃくちゃ良い観察です 👏
+理解の筋道も正しいので、整理して説明しますね。
+
+1. あなたの書いたコードの動き
+for (Integer num : Integers) {
+  if (num % 2 != 0) {
+    System.out.println("奇数: " + num);
+  }
+  sum += num;
+}
+ここでやっていることは、次の2つです：
+if文の中
+→ 「もし奇数なら出力する」だけ。
+→ 出力はするが、sum には足していない。
+
+ループの本体（for文のスコープ内の sum += num;）
+→ if文の外なので、奇数でも偶数でも関係なく、すべての num を足している。
+
+2. だから「1から10まで全部の合計」になる
+sum += num; が if文の外 にあるため、奇数だけではなく偶数も含めて 全要素を合計 している。
+その結果、「1から10の合計 = 55」になるんです。
+もし奇数だけの合計を出したいなら、sum += num; を if文の中 に書く必要があります。
+
+3. 用語の整理（質問の「この単位」について）
+Javaでは { ... } の中を ブロック と呼びます。
+if (条件) { ... } の { ... } → if文のブロック
+for (...) { ... } の { ... } → for文のブロック
+今回の sum += num; は for文のブロックの中にあり、
+if文のブロックの外 にある。
+だから「全体の合計」になっています。
+
+まとめ
+今のコードは「奇数を出力」＋「全部の数を合計」。
+奇数だけの合計を出すなら、sum += num; を if文の中に入れる。
+「この単位」は ブロック（{}で囲まれた範囲）。
+
+
+
+
+
+
+
+🎯 応用問題（ArrayList × ループ）
+次の仕様を満たすプログラムを書いてください。
+好きな整数を 20個 ArrayList に追加する（好きな値でOK）。
+for文 を使ってすべての数を出力する。
+拡張for文 を使って「偶数だけ」を出力する。
+奇数の合計 と 偶数の合計 をそれぞれ求めて出力する。
+
+出力イメージ（例）
+（あなたが入れた数字によって変わりますが、流れはこんな感じ）
+
+1
+2
+3
+4
+...
+20
+偶数: 2
+偶数: 4
+偶数: 6
+...
+偶数: 20
+奇数の合計: 100
+偶数の合計: 110
+
+
+👉 では、あなたのコードを書いてみてください！
+
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<Integer> LikeIntegers = new ArrayList<>();
+
+    LikeIntegers.add(1);
+    LikeIntegers.add(2);
+    LikeIntegers.add(3);
+    LikeIntegers.add(4);
+    LikeIntegers.add(5);
+    LikeIntegers.add(6);
+    LikeIntegers.add(7);
+    LikeIntegers.add(8);
+    LikeIntegers.add(9);
+    LikeIntegers.add(10);
+    LikeIntegers.add(11);
+    LikeIntegers.add(12);
+    LikeIntegers.add(13);
+    LikeIntegers.add(14);
+    LikeIntegers.add(15);
+    LikeIntegers.add(16);
+    LikeIntegers.add(17);
+    LikeIntegers.add(18);
+    LikeIntegers.add(19);
+    LikeIntegers.add(20);
+
+    for (int i =0; i < LikeIntegers.size(); i++){
+      System.out.println(LikeIntegers.get(i));
+    }
+
+    for (Integer LikeInteger : LikeIntegers){
+      int sum =0;
+      int num =0;
+      if (LikeInteger %2 == 0 ){
+        System.out.println("偶数" + LikeInteger);
+        sum += LikeInteger;
+      }else {
+        num += LikeInteger;
+      }
+      System.out.println("偶数の合計" + sum);
+      System.out.println("奇数の合計" + num);
+    }
+  }
+}
+❌ 修正点
+
+合計の変数をループの外に置く必要がある
+今のコードでは sum と num を for文の中で毎回初期化 してしまっています。
+そのため「最後に合計が出る」のではなく「毎回リセットされる」ので正しく計算できません。
+✅ 解決方法 → int evenSum = 0; int oddSum = 0; を for文の前で宣言しましょう。
+
+合計の出力の場所
+今のコードはループの中で毎回出力しているため、逐一「部分合計」が出てしまいます。
+最終的に出したいのは すべて足し終わった後の結果 なので、出力はループの外に書きます。
+
+
+
+修正版：
+import java.util.ArrayList;
+
+public class Main {
+  public static void main (String[] args){
+    ArrayList<Integer> LikeIntegers = new ArrayList<>();
+
+    1～20を追加
+    for (int i = 1; i <= 20; i++) {
+      LikeIntegers.add(i);
+    }
+
+    for文ですべての数を出力
+    for (int i = 0; i < LikeIntegers.size(); i++) {
+      System.out.println(LikeIntegers.get(i));
+    }
+
+    奇数・偶数の合計を計算
+    int evenSum = 0; // 偶数合計
+    int oddSum = 0;  // 奇数合計
+
+    for (Integer LikeInteger : LikeIntegers) {
+      if (LikeInteger % 2 == 0) {
+        System.out.println("偶数: " + LikeInteger);
+        evenSum += LikeInteger;
+      } else {
+        oddSum += LikeInteger;
+      }
+    }
+
+    ループ終了後に合計を出力
+    System.out.println("偶数の合計: " + evenSum);
+    System.out.println("奇数の合計: " + oddSum);
+  }
+}
+👍 評価
+ArrayListの追加 → OK
+for文で全出力 → OK
+偶数の出力（拡張for文）→ OK
+奇数と偶数の合計計算 → 修正で完成！
+
+
+あなたのコード（修正前）
+for (Integer LikeInteger : LikeIntegers){
+  int sum =0;
+  int num =0;
+  if (LikeInteger %2 == 0 ){
+    System.out.println("偶数" + LikeInteger);
+    sum += LikeInteger;
+  } else {
+    num += LikeInteger;
+  }
+  System.out.println("偶数の合計" + sum);
+  System.out.println("奇数の合計" + num);
+}
+
+実際の出力イメージ
+入力したのは 1〜20 なので、それでシミュレーションします。
+
+最初の2〜3回を例にすると：
+1回目（num=1 のとき）
+sum = 0 / num = 0 でリセットされる
+1は奇数 → num = 1
+出力：
+偶数の合計0
+奇数の合計1
+
+2回目（num=2 のとき）
+また sum = 0 / num = 0 でリセットされる
+2は偶数 → sum = 2
+出力：
+偶数2
+偶数の合計2
+奇数の合計0
+
+3回目（num=3 のとき）
+またリセットされる
+3は奇数 → num = 3
+出力：
+偶数の合計0
+奇数の合計3
+
+全体の出力の特徴
+毎回「合計0」「合計〇」という形で 部分的な値しか出ない
+最終的な「偶数の合計110」「奇数の合計100」は 絶対に出ない
+
+つまり：
+意図した「累積の合計」ではなく、毎回リセットされた合計が出力される
+最後まで見ても「全部の合計」がわからない
+
+✅ 修正版との違い
+修正版は最後に 偶数の合計: 110 / 奇数の合計: 100 と出る
+あなたのコードは「偶数の合計2」「奇数の合計3」みたいにその時点の数字しか出ない
+
+
+✍️ 整理した言い方
+今のコードは for文の中で int sum = 0; int num = 0; を宣言している。
+→ そのため、ループが1回まわるたびに変数がリセットされて0からスタートする。
+例えば 1 のときは「奇数の合計1」と出るが、次のループでまた 0 から始まるので「積み上げ」ができない。
+そして「偶数の合計」「奇数の合計」を for文の中で出力しているから、その時点の「部分合計」しか表示されない。
+全部の合計を出したいなら、変数の宣言も出力も for文の外に置く必要がある。
+→ そうすると「ループ中で値を積み上げる」ことができて、最後に「まとまった結果（全体の合計）」を見ることができる。
+
+✅ 修正イメージ
+今のコード
+ループの中で「合計を初期化」→「その回だけ計算」→「部分的に出力」
+
+正しいコード
+ループの外で「合計を準備」→「ループ中で少しずつ足す」→「最後にまとめて出力」
+
+例文にすると
+「毎回、新しい貯金箱を買ってきて1回だけ入れて捨てている」 → 部分合計しか残らない（今のコード）
+「最初に1つ貯金箱を置いて、全部のループで同じ箱に入れていく」 → 最後に全額が残る（正しいコード）
+
+👉 つまり、あなたの説明はほぼ正解！
+「for文の中に変数を置いたからリセットされる」
+「for文の中で出力したから部分合計しか出ない」
+「外に置けばループで積み上がって最後に全体の合計が見られる」
+
+これが正しい言語化です 👍
+
+
+👉 この修正版を実行すれば、応用問題も完璧にクリアです！🎉
+これで ArrayList × ループの範囲は完全合格 と言えます。
+
+
+"1-6-4 ArrayList:ループとの併用"
