@@ -1,0 +1,591 @@
+今回の学習範囲は ステップ1－7：メソッド（メソッドの定義と呼び出し） ですね。
+まずはルールに従って、基本の書き方（例文コード）を提示します。
+
+✍️ 基本文法（例文）
+public class Main {
+  メソッドの定義
+  int型を返す「add」という名前のメソッドを作る
+  public static int add(int a, int b) {
+    return a + b;  2つの引数を足して返す
+  }
+
+  メインメソッド
+  public static void main(String[] args) {
+    メソッドを呼び出す
+    int result = add(5, 3);
+    System.out.println("結果: " + result);
+  }
+}
+
+🔍 解説
+public static int add(int a, int b)
+  public：どこからでも使える
+  static：インスタンス化せずに使える
+  int：戻り値の型
+  add：メソッド名
+  (int a, int b)：引数（受け取る値）
+
+return a + b;
+→ メソッドの戻り値。計算結果を返す。
+
+int result = add(5, 3);
+→ addメソッドを呼び出し、5と3を渡す。返ってきた結果をresultに代入。
+
+出力結果
+
+結果: 8
+
+
+「メソッドの定義」とは？
+メソッドの定義とは、「処理のかたまりを名前をつけて作ること」 です。
+例：public static int multiply(int x, int y) { ... }
+ここで「multiply」という名前の処理（掛け算）を定義しました。
+→ 呼び出すと、その中の処理が実行されます。
+要するに、自分専用の小さなプログラムを作って、あとで呼び出せるようにしたのが「定義」です。
+
+
+✅ あなたの言葉のチェック
+1. メソッドの定義
+クラスという設計図の紙の中に、細分化した仕組み（処理）をつくって名前をつけたもの。呼び出したら、その中の処理が実行される。
+
+
+2. インスタンス化
+設計図 = クラスの中にメソッドなどの細分化したものがある。その上で仕組みだけなので、その設計図を「new～～」で実体化 = 持ってきて初めて使える。インスタンス化したものを通して、入力を受け取り、出力結果を返す。
+クラス：全体の枠（設計図）
+変数、の中のフィールド＝設計図の中の「データ」
+メソッド：設計図の中の「処理・動き」
+補足すると：
+「入力を受け取り、出力を返す」はインスタンス化した後にメソッドを使う時のイメージ。
+インスタンス化の本質は「そのオブジェクト専用のデータの箱を持てること」。
+
+
+3. staticあり／なし
+staticがある → 設計図そのものにくっついている仕組みだから、「new～～」をしなくても呼べる。
+staticがない → 「new～～」で実体 = 持ってこないと（クラスという設計図）を作らないと呼べない。
+classの中にあるメソッドやフィールドにstaticをつける事で使えるようになる
+補足すると：
+staticあり → 「みんなで共通で使う道具」
+staticなし → 「それぞれの持ち物」
+
+✅ あなたのたとえ
+
+staticあり
+　→ クラスの設計図をそのまま、誰でも共通で使える。
+　→ 例えるなら「日本の病院で保険適用」みたいに、国民なら誰でも同じ仕組みで利用できる。
+
+staticなし
+　→ new ～ して実体化しないと使えない。
+　→ 例えるなら「アメリカの病院」、個人で契約（インスタンス化）しないとサービスが受けられない。
+
+👉 このイメージ、大筋で合っています！
+
+🔹 補足（先生的に少し言葉を足すと…）
+staticあり（共通の仕組み）
+→ 「そのクラスの機能を 全員で共有する」イメージ。
+→ 国民健康保険のように、誰でも同じように利用できる。
+
+staticなし（個別の仕組み）
+→ 「そのクラスから作ったオブジェクトが 自分専用の機能やデータを持つ」イメージ。
+→ アメリカの保険みたいに、個別契約（インスタンス化）しないと使えない。
+→ さらに契約内容（＝インスタンスのデータ）も人によって違う。
+
+🌟 まとめ
+あなたのたとえは本質をつかんでいます ✅
+staticあり = 共通・公的な仕組み
+staticなし = 個別・私的な仕組み（インスタンスごとに違う）
+
+staticあり（設計図そのものを使う）
+staticメソッドは「設計図そのもの」にくっついている機能。
+→ どんなデータをもたせるかに関係なく、共通の処理をしたいときに便利です。
+例：電卓（計算結果は誰が使っても同じ）
+
+staticなし（インスタンス化して個別のデータを持つ）
+staticを付けないと「そのオブジェクト専用の機能」になる。
+→ 人や物ごとにデータが変わるときに便利。
+例：犬（名前は個別に違う）
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+4. 個別データを持てる意味
+staticがない場合は、作った実体ごとに違うデータを持てる。例：「ポチ」という犬と「タマ」という犬で、それぞれ違う名前を覚えられる。
+補足すると：
+アプリだと「ユーザーごとに別のプロフィール」や「商品ごとに違う在庫数」を持てる。
+staticだと「全員で同じ値」を共有してしまう。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+5. public class Main
+「Javaのプログラムをこれから書きますよ」という宣言の枠。
+補足すると：
+厳密には「Mainというクラスを定義する宣言」だけど、イメージはそのままでOK。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+6. public static
+public：外部からどこからでも呼べるようにする。
+static：newしなくても呼べるようにする。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+7. public static void main(String[] args)
+Javaが最初に探して呼び出す入口のメソッド。…（略）…まとめると「この中のコードが最初に実行されますよ」という場所。
+
+public → 外部（Java実行環境）から呼べるように。
+static → newしなくても呼べるように。
+void → 戻り値なし。
+main → 特別な名前、必ずここから実行される。
+(String[] args) → 実行時の引数を受け取れる（今は使わなくてOK）。
+
+補足すると：
+mainは特別扱いで「名前が違うとJavaが探せない」。
+細分化して覚える必要はなく「入口のおまじない」とひとまとまりでOK。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+8. 戻り値
+ユーザーが入力したものを、設計図の中のメソッドを通して処理して「答え」を返す。返すものがないときは void を使う。
+補足すると：
+戻り値は「ユーザー入力に限らず、処理した結果を返すもの全般」。
+例：入力がなくても乱数を返すメソッドとかもある。
+
+引数 = 材料を「もらう」データをもらう
+戻り値 = 結果を「返す」
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+
+
+
+
+
+✅ 練習問題①
+次の仕様でメソッドを作ってください。
+メソッド名：multiply
+引数：int x, int y
+戻り値：int
+内容：2つの数の掛け算をして返す
+mainメソッドで multiply(4, 6) を呼び出して、結果を出力してください。
+
+あなたがコードを書いたら、私が正誤をチェックしてフィードバックします。
+では、どうぞ！
+
+public class Main {
+  public static int multiply (int x, int y){
+    return x * y;
+  }
+
+  public static void main (String[] args){
+    int result = multiply(4, 6);
+    System.out.println("結果" + result);
+  }
+}
+🔎 チェック
+public static int multiply (int x, int y)
+→ 「xとyを掛け算して返す」メソッドを定義できている。
+
+int result = multiply(4, 6);
+→ multiplyメソッドを呼び出して、戻り値を受け取っている。
+
+System.out.println("結果" + result);
+→ 結果を画面に出力している。
+
+👉 文法的にも意味的にも正しいコードです！
+
+🖥️ 出力結果
+結果24
+
+✅ フィードバック
+メソッドの定義（multiply） と 呼び出し（mainの中で使う） をしっかり書けています。
+今回の範囲（メソッドの定義と呼び出し）において 正解 です！👏
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+戻り値ありメソッド
+材料（引数）をもらう → 処理する → 結果を返す ✅
+
+戻り値なしメソッド（void）
+材料（引数）をもらう → 処理する → 結果は返さず、その場で表示など
+
+✅ まとめ
+「返す」とは、メソッドの処理結果を呼び出し元に渡すこと
+return を使うと、処理の答えを呼び出し元で受け取れる
+返さないときは void
+
+💡 言い換えると：
+「return 〇〇;」と書いたときの〇〇が、呼び出し元に渡される結果（戻り値）」 です。
+
+
+public static int add(int a, int b) {
+    return a + b;  // ← この行で結果を返す
+}
+
+public static void main(String[] args) {
+    int result = add(5, 3);  // ここに「8」が返ってくる
+    System.out.println(result);  // → 8
+}
+流れ：
+add(5, 3) を呼び出す
+メソッドの中で a + b = 8 を計算
+return 8; で「8」を呼び出し元に渡す
+result に 8 が入る
+
+👉 この「渡す」が「返す（戻り値）」です。
+
+
+
+
+
+
+
+問題②
+仕様：
+メソッド名：printMessage
+引数：なし
+戻り値：なし（void）
+内容：「こんにちは！メソッドを呼び出しました」と表示する
+mainメソッドで printMessage() を呼び出す
+
+コードを書いてみてください 👍
+
+public class Main {
+  public void String printMessage (){
+    "こんにちは！メソッドを呼び出しました";
+  }
+
+  public static void main (String[] args){
+    String result = printMessage();
+    System.out.println(result);
+  }
+}
+❌ あなたのコードの間違いポイント
+
+戻り値なし（void）のときに String を書いてしまっている
+→ public void printMessage() が正しいです。
+
+文字列をそのまま書いただけで出力していない
+→ System.out.println("こんにちは！メソッドを呼び出しました"); にする必要があります。
+
+mainメソッドで戻り値を受け取ろうとしている
+→ 戻り値がないメソッドなので String result = ... は不要です。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+ここで static を付けた理由 は：
+mainメソッドが static だから
+main から呼び出すメソッドも static にしておかないと、呼び出せないんです。
+🔹 なぜ？
+static メソッドは「newせずにクラス名だけで呼べる」仕組み。
+main 自体が static なので、インスタンスを作らずに直接実行される。
+その中で呼ぶメソッドも static にしておかないと、「インスタンスがないので呼べません」とエラーになる。
+
+staticなし（こうするとエラーになる）
+public class Main {
+  public void printMessage() {
+    System.out.println("こんにちは！");
+  }
+
+  public static void main(String[] args) {
+    printMessage(); // ❌ エラー
+  }
+}
+
+➡️ ここでは static がないので、呼び出すには インスタンス化（new） が必要です。
+public static void main(String[] args) {
+  Main m = new Main();   // インスタンス化
+  m.printMessage();      // ✅ OK
+}
+
+--------------------------------------------------------------------------
+疑問：
+Stringって文字列を表示するときに必要ってなかったでしたっけ？intは数字でみたいな。doubleは小数点ありの数字でみたいな。だから書いたのですけど
+
+ChatGPT:
+すごく良い視点です！👏
+「String は文字列を扱うときに必要」というのは正しい理解です。ただ、使い方が少し違うんです。
+
+🔹 String が出てくる場面は大きく2つあります
+① 変数や引数・戻り値の型として使うとき
+String message = "こんにちは";   // 変数の型
+System.out.println(message);
+------
+public static String getMessage() {  // 戻り値の型
+    return "こんにちは";  
+}
+➡️ この場合、「文字列データを変数に入れて使う」、
+または 「メソッドが文字列を返す」 ときに String を書きます。
+------
+② System.out.println("文字列"); の中で直接使うとき
+System.out.println("こんにちは！");  // ダブルクォートで囲んだ文字列
+➡️ この場合は すでに文字列リテラル（値そのもの） なので、String という型名は不要です。
+------
+✅ 例で比較
+変数の型
+String message = "こんにちは";  // 変数の型がString
+------
+メソッドの戻り値の型
+public static String getMessage() {  // 戻り値の型がString
+    return "こんにちは";
+}
+------
+戻り値なし（void）
+public static void printMessage() {  // 戻り値の型がvoid（なし）
+    System.out.println("こんにちは");
+}
+--------------------------------------------------------------------
+
+✅ 整理すると
+
+void
+= 戻り値なし
+= 返さないので「表示するだけ」「処理するだけ」のときに使う
+
+String
+= 戻り値あり（文字列を返すときに使う）
+= return "文字列"; のように値を返して、呼び出し元で使う
+
+void と String は両立できない
+→ 戻り値は「なし」か「あり」か、どちらか一方しか選べない
+--------------------------------------------------------------------
+
+void/String/int... は 「返すデータの型」
+static は「インスタンス化せずに呼べる」かどうかを決める修飾子
+------------------------------------------------------------------
+修正版：
+public class Main {
+  public static void printMessage() {
+    System.out.println("こんにちは！メソッドを呼び出しました");
+  }
+
+  public static void main (String[] args){
+    printMessage();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+題③：同じメソッドを複数回呼び出す に挑戦です。
+✍️ 問題③
+次の仕様でコードを書いてください。
+メソッド名：greet
+引数：String name
+戻り値：なし（void）
+内容：受け取った名前を使って「こんにちは、〇〇さん！」と表示する
+
+mainメソッドで greet("太郎") と greet("花子") を呼び出してください
+
+public class Main {
+  public static void greet(String name){
+    System.out.println("こんにちは" + String name);
+  }
+
+  public static void main (String[] args){
+    
+  }
+}
+❌ 間違いポイント
+System.out.println("こんにちは" + String name);
+String name と書いてしまっていますが、ここでは 変数名 name だけでOKです。
+引数の型 (String) は メソッド定義のとき に書くので、処理の中では不要です。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+修正版：
+public class Main {
+  public static void greet(String name) {
+    System.out.println("こんにちは、" + name + "さん！");
+  }
+
+  public static void main(String[] args) {
+    greet("太郎");
+    greet("花子");
+  }
+}
+ここで出てくる 2つの String は意味が違います。
+
+🔹 ① void と一緒に書く「戻り値の型」
+public static void greet(String name)
+
+void = このメソッドは何も返さない（戻り値なし）
+
+つまり「返さない」と決めているから、ここに String はつけていません。
+ーーーーーーーーー
+🔹 ② String name の「引数の型」
+(String name)
+
+これは「このメソッドに 文字列型（String）のデータを受け取りますよ」という意味。
+
+「戻り値の型」とは別物。
+ーーーーーーー
+🌟 まとめ
+void → 戻り値の型（返すものがあるかないか）
+String name → 引数の型（受け取る値の種類）
+👉 同じ String でも「戻り値」なのか「引数」なのかで役割が違うので
+
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+
+
+
+
+
+
+
+
+
+
+
+📘 メソッド（定義と呼び出し）の問題一覧
+
+問題1
+2つの整数を受け取り、その掛け算の結果を返す multiply メソッドを作り、呼び出して結果を表示せよ。
+public class Main {
+  public static int multiply (int x, int y){
+    return x * y;
+  }
+  public static void main (String[] args){
+    int result = multiply(6, 3);
+    System.out.println("結果" + result);
+  }
+}
+
+✅ 問題1
+正解。出力は「結果18」。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+問題2
+引数を持たず、戻り値もない printMessage メソッドを作り、「こんにちは！メソッドを呼び出しました」と表示せよ。
+public class Main {
+  public static void printMessage (){
+    System.out.println("こんにちは！メソッドを呼び出しました");
+  }
+  public static void main (String[] args){
+    printMessage();
+  }
+}
+
+✅ 問題2
+正解。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+問題3
+引数で渡された名前を使って「こんにちは、〇〇さん！」と表示する greet メソッドを作り、複数回呼び出せ。
+public class Main {
+  public static void greet (String name){
+    System.out.println("こんにちは" + name + "さん！");
+  }
+
+  public static void main (String[] args){
+    greet("大河");
+    greet("吾郎");
+  }
+}
+
+✅ 問題3
+正解。出力は「こんにちは大河さん！」「こんにちは吾郎さん！」。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+問題4
+add（加算）、subtract（減算）、multiply（乗算）、divide（除算）の4つのメソッドを作り、呼び出して結果を表示せよ。
+public class Main {
+  public static int addition (int x, int y){
+    return x + y;
+  }
+  public static int subtraction (int x, int y){
+    return x - y;
+  }
+  public static int multipcation (int x, int y){
+    return x * y;
+  }
+  public static int division (int x, int y){
+    return x / y
+  }
+
+  public static void main (String[] args){
+    int result = addition(5 ,8);
+    System.out.println("加算の結果" + result);
+
+    int Result = subtraction(5 ,8);
+    System.out.println("減算の結果" + Result);
+
+    int REsult = multipcation(5 ,8);
+    System.out.println("乗算の結果" + REsult);
+
+    int RESult = division(5 ,8);
+    System.out.println("除算の結果" + RESult);
+  }
+}
+
+⚠️ 問題4
+multipcation → multiplication の綴りミス。
+int division の行にセミコロン ; が抜けている。
+変数名の大文字小文字がバラバラ（Javaでは通常は小文字始まり）。
+→ 修正すれば正しく動作。
+ーーーーーーーーーーーーー
+問題4の修正版：
+
+public class Main {
+  public static int addition (int x, int y){
+    return x + y;
+  }
+  public static int subtraction (int x, int y){
+    return x - y;
+  }
+  public static int multiplication (int x, int y){
+    return x * y;
+  }
+  public static int division (int x, int y){
+    return x / y;
+  }
+
+  public static void main (String[] args){
+    int additionresult = addition(5 ,8);
+    System.out.println("加算の結果" + additionresult);
+
+    int subtractionresult = subtraction(5 ,8);
+    System.out.println("減算の結果" + subtractionresult);
+
+    int multiplicationresult = multiplication(5 ,8);
+    System.out.println("乗算の結果" + multiplicationresult);
+
+    int divisionresult = division(5 ,8);
+    System.out.println("除算の結果" + divisionresult);
+  }
+}
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+問題5（最終テスト）
+任意の整数を引数として受け取り、偶数なら「偶数です」、奇数なら「奇数です」と表示するメソッドを作り、複数回呼び出せ。
+
+public class Main {
+  public static void judgment(int number){
+    if (number %2 == 0){
+      System.out.println("偶数です");
+    }else {
+      System.out.println("奇数です");
+    }
+  }
+
+  public static void main (String[] args){
+    judgment(4);
+    judgment(7);
+  }
+}
+
+
+💡 総評
+基本文法は理解できています。
+問題4の細かいスペル・セミコロン・変数名ルールに注意すれば完璧です。
+
+
+メソッドの基本形
+戻り値の型 メソッド名(引数リスト) {
+    // 処理
+    return 戻り値;   戻り値がある場合
+}
+
+メソッドを「定義」するときに、必ず 戻り値の型 と 引数の型・名前 を書く必要があります。
+
