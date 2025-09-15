@@ -1,0 +1,614 @@
+今回は ステップ1－7：メソッド → staticメソッド を学習しますね。
+流れは以下の通りに進めます：
+
+まず 基本の書き方（例文コード） を提示します。
+そのあと、私から 練習問題 を出題します。
+あなたがコードを書いて提出してくれたら、私が 正誤チェック & フィードバック をします。
+正解したら次の問題へ。最後に 集大成の最終テスト + 応用問題 を行い、合格するまで終了しません。
+
+📝 基本文法：staticメソッド
+
+Javaでは、static を付けると「インスタンス化せずに呼び出せるメソッド」になります。
+つまり、new を使ってオブジェクトを作らなくても直接呼び出せます。
+
+例文コード
+public class Main {
+
+  staticメソッドの定義
+  public static int square(int x) {
+    return x * x;
+  }
+
+  public static void main(String[] args) {
+    
+    staticメソッドの呼び出し
+    int result = square(5);
+    System.out.println("5の2乗は: " + result);
+  }
+}
+
+実行結果
+5の2乗は: 25
+
+この基本を理解したうえで、次に進みます。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+疑問：
+staticを作らない場合も見せていただけますか？
+
+ChatGPT:
+いい質問です！👏
+static をつけない場合は、インスタンスを生成してから メソッドを呼び出す必要があります。
+
+🔹 staticありの場合（復習）
+public class Main {
+
+  staticメソッド
+  public static int square(int x) {
+    return x * x;
+  }
+
+  public static void main(String[] args) {
+    
+    インスタンス化せずに直接呼び出し可能
+    int result = square(5);
+    System.out.println("5の2乗は: " + result);
+  }
+}
+👉 new を使わなくても呼び出せるのが static の特徴です。
+
+🔹 staticなしの場合
+public class Main {
+
+  staticを付けない（インスタンスメソッド）
+  public int square(int x) {
+    return x * x;
+  }
+
+  public static void main(String[] args) {
+    
+    インスタンスを作成してから呼び出す
+    Main obj = new Main();   // ← ここでインスタンス生成
+    int result = obj.square(5);
+    System.out.println("5の2乗は: " + result);
+  }
+}
+👉 static がないと main メソッド（staticの世界）から直接呼べないので、
+必ず new Main() でオブジェクトを作り、obj.square(5) のように呼びます。
+
+まとめ
+staticあり → クラスに属する共通のメソッド。インスタンスを作らなくても呼べる。
+staticなし → インスタンスごとに動くメソッド。オブジェクトを作って呼び出す必要がある。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+✅ 練習問題1
+整数を受け取り、その 3乗（x³） を返す cube という static メソッドを作ってください。
+
+public class Main {
+  ここに cube メソッドを定義してください
+
+  public static void main(String[] args) {
+    int result = cube(3);
+    System.out.println("3の3乗は: " + result);
+  }
+}
+
+
+それでは、あなたのコードをどうぞ ✍️
+
+あなた:
+
+public class Main {
+  ここに cube メソッドを定義してください
+  public static int cube (int x){
+    return x * x * x;
+  }
+
+  public static void main(String[] args) {
+    int result = cube(3);
+    System.out.println("3の3乗は: " + result);
+  }
+}
+完璧です！✨👏
+コードを実行するとちゃんと 3の3乗は: 27 と表示されます。
+
+✅ 実行結果
+3の3乗は: 27
+
+フィードバック
+public static int cube(int x) の書き方は正しく、
+int 型の戻り値で3乗を計算しています。
+main メソッドから cube(3) を呼び出して、結果を表示する流れも正解です。
+問題なく理解できていますね！👍
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+次の練習問題（問題2）
+整数を2つ受け取り、その 平均値（小数も含める） を返す average という static メソッドを作ってください。
+
+public class Main {
+  ここに average メソッドを定義してください
+
+  public static void main(String[] args) {
+    double result = average(5, 8);
+    System.out.println("5と8の平均値は: " + result);
+  }
+}
+
+👉 ヒント：平均 = (a + b) / 2
+ただし、割り算のときに 小数点を失わないように工夫 してください。
+
+public class Main {
+  ここに average メソッドを定義してください
+  public static double average (int x, int y){
+    return (a + b) / 2;
+  }
+
+  public static void main(String[] args) {
+    double result = average(5, 8);
+    System.out.println("5と8の平均値は: " + result);
+  }
+}
+❌ 問題点
+
+引数の名前
+　public static double average(int x, int y) と定義しているのに、
+　メソッドの中で a + b を使っています。
+　→ 正しくは x + y です。
+
+整数同士の割り算
+　(x + y) / 2 は int同士の割り算 になるため、小数点が切り捨てられます。
+　→ 2.0 で割るか、キャスト (double) を使いましょう。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+問題2の修正版：
+public class Main {
+  ここに average メソッドを定義してください
+  public static double average (int x, int y){
+    return (x + y) / 2.0;
+  }
+
+  public static void main(String[] args) {
+    double result = average(5, 8);
+    System.out.println("5と8の平均値は: " + result);
+  }
+}
+素晴らしいです！💯✨
+修正版として完璧に書けています 👍
+
+🎯 実行結果
+5と8の平均値は: 6.5
+
+フィードバック
+2.0 を使っているので、小数点も正しく計算できています。
+static メソッドの定義・呼び出しの流れも理解できています。
+コードの文法エラーもなく、実務でも使える書き方になっています。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+次の問題（問題3）
+今度は、3つの整数の最大値を返す static メソッド を作ってください。
+メソッド名は maxOfThree にしましょう。
+
+public class Main {
+  
+  ここに maxOfThree メソッドを定義してください
+
+  public static void main(String[] args) {
+    int result = maxOfThree(12, 7, 15);
+    System.out.println("最大値は: " + result);
+  }
+}
+👉 ヒント：if を使ってもいいですし、Math.max を組み合わせてもOKです。
+
+public class Main {
+  
+  ここに maxOfThree メソッドを定義してください
+  public static int maxOfThree(int a, int b, int c){
+
+    int [] numbers = {a, b, c};
+    int max = numbers[a];
+    for (int i =0; i < numbers.length; i++){
+      if (max < numbers[i]){
+        max += numbers[i];
+      }
+    }
+    System.out.println(max);
+  }
+
+  public static void main(String[] args) {
+    int result = maxOfThree(12, 7, 15);
+    System.out.println("最大値は: " + result);
+  }
+}
+❌ 誤りポイント
+
+配列の添字ミス
+int max = numbers[a];
+ここは a（値そのもの）ではなく、0番目の要素で初期化するべきです。
+👉 正しくは numbers[0]。
+
+最大値の更新方法
+max += numbers[i];
+これだと「加算」してしまいます。
+👉 正しくは「代入」＝ max = numbers[i];。
+
+戻り値がない
+maxOfThree は int を返すメソッドにしているので、最後に return max; が必要です。
+👉 今のままではコンパイルエラーになります。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+問題3の修正版：
+public class Main {
+  
+  ここに maxOfThree メソッドを定義してください
+  public static int maxOfThree(int a, int b, int c){
+
+    int [] numbers = {a, b, c};
+    int max = numbers[0];
+    for (int i =0; i < numbers.length; i++){
+      if (max < numbers[i]){
+        max = numbers[i];
+      }
+    }
+    return max;
+  }
+
+  public static void main(String[] args) {
+    int result = maxOfThree(12, 7, 15);
+    System.out.println("最大値は: " + result);
+  }
+}
+とても良い姿勢です！👏✨
+
+✅ あなたの書き方について
+「配列」「for文」「if文」を組み合わせて解こうとしたのは すごく正しいアプローチ です。
+実務でも「既に知っている構文」を組み合わせて、自分なりに書いていくのは基本中の基本です。
+最初に間違えても大丈夫。考えて実装 → 動かす → 修正する という流れが一番成長します。
+
+🔹 実務ではどうするか？
+実務では「シンプルに書くこと」が好まれます。
+今回のような 3つの値の最大値 なら、例えば：
+
+配列＋ループで書く方法（あなたの書き方）
+👉 「for文を使って最大値を探す」という考え方は、配列処理や実務で複数データを扱うときに応用できます。
+
+Math.max を使う方法（もっと簡潔）
+public static int maxOfThree(int a, int b, int c) {
+    return Math.max(a, Math.max(b, c));
+}
+👉 実務ではこちらがよく使われます。
+理由：読みやすく、バグが入りにくい。
+
+🔹 まとめ
+「知っている構文を組み合わせて考えた」やり方は大正解！
+実務では「もっとシンプルにできないか？」を考える習慣が大切。
+今はまず 配列＋ループで自分の力で書けること が大切で、その上で Math.max のような便利メソッドを覚えればOK。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+では、staticメソッド × 配列 × for文 の応用問題に進みましょう。
+
+📘 メソッドの引数に配列を書く方法
+
+メソッドに配列を渡すときは、次のように書きます👇
+
+public static 戻り値の型 メソッド名(データ型[] 配列の名前) {
+    // 処理
+}
+例えば、整数の配列（int[]）を受け取って、その合計を返すなら：
+public static int sumArray(int[] numbers) {
+    int sum = 0;  合計を入れる変数
+    for (int i = 0; i < numbers.length; i++) {
+        sum += numbers[i];  配列の要素を1つずつ加算
+    }
+    return sum;  最終的な合計を返す
+}
+
+
+📝 応用問題
+整数の配列を受け取り、その合計を返す sumArray という static メソッド を作ってください。
+
+仕様
+引数：int[]（整数の配列）
+戻り値：int（合計値）
+for文を使ってすべての要素を足し合わせる
+
+public class Main {
+  public static int sumArray (int [] numbers){
+    int sum =0;
+    for (int i =0; i < numbers.length; i++){
+      sum += numbers[i];
+    }
+    return sum;
+  }
+
+  public static void main(String[] args) {
+    int[] numbers = {2, 4, 6, 8, 10};
+    int result = sumArray(numbers);
+    System.out.println("配列の合計は: " + result);
+  }
+}
+おおっ！✨ しっかり書けています 👏👏
+sumArray メソッドの定義は完璧です。
+
+✅ フィードバック
+int[] numbers の書き方も正しくできています。
+for ループで配列を走査して、sum に加算していく流れも正解です。
+return sum; で合計値を返す処理もOKです。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+📝 応用問題
+整数の配列を受け取り、その中の最大値を返す static メソッド maxArray を作ってください。
+
+仕様
+引数：int[]（整数の配列）
+戻り値：int（最大値）
+for文を使って「最大値」を探す
+
+実行例
+public class Main {
+  // ここに maxArray メソッドを定義してください
+
+  public static void main(String[] args) {
+    int[] numbers = {3, 7, 2, 9, 5};
+    int result = maxArray(numbers);
+    System.out.println("配列の最大値は: " + result);
+  }
+}
+
+実行結果
+配列の最大値は: 9
+
+👉 ポイント
+最初に max を配列の1番目の要素で初期化する
+for文で配列を回し、もし max より大きな値があれば更新する
+最後に return max;
+
+✍️ では、あなたのコードで maxArray を書いてみてください。
+
+public class Main {
+  // ここに maxArray メソッドを定義してください
+  public static int maxArray (int [] numbers){
+    int max = numbers[0];
+    for (int i =0; i < numbers.length; i++){
+      if (max < numbers[i]){
+        max = numbers[i];
+      }
+    }
+    return max;
+  }
+
+  public static void main(String[] args) {
+    int[] numbers = {3, 7, 2, 9, 5};
+    int result = maxArray(numbers);
+    System.out.println("配列の最大値は: " + result);
+  }
+}
+素晴らしいです！💯✨
+完璧に書けています 👍
+
+🎯 実行結果
+配列の最大値は: 9
+
+フィードバック
+初期値を numbers[0] に設定 → 正解！
+for文で走査して if で比較更新 → 正解！
+return max; → 忘れずに書けていて正解！
+実務でも十分使える綺麗なコードになっています 👍
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+次はラスト 🎓 最終テスト問題
+ここまでの総合力を試します。
+
+📝 最終テスト
+整数の配列を受け取り、
+合計
+平均
+最大値
+をそれぞれ求める 3つの static メソッド を作ってください。
+
+メソッド名：
+sumArray(int[] numbers)
+averageArray(int[] numbers)（戻り値は double）
+maxArray(int[] numbers)
+
+実行例
+public class Main {
+  // ここに3つのメソッドを定義してください
+
+  public static void main(String[] args) {
+    int[] numbers = {4, 8, 15, 16, 23, 42};
+
+    int sum = sumArray(numbers);
+    double avg = averageArray(numbers);
+    int max = maxArray(numbers);
+
+    System.out.println("合計: " + sum);
+    System.out.println("平均: " + avg);
+    System.out.println("最大値: " + max);
+  }
+}
+
+実行結果
+合計: 108
+平均: 18.0
+最大値: 42
+
+👉 これは総まとめの問題です。
+準備はいいですか？ ✍️
+
+public class Main {
+  // ここに3つのメソッドを定義してください
+  public static int sumArray (int [] numbers){
+    int sum =0;
+    for (int i =0; i < numbers.length; i++){
+      sum += numbers[i];
+    }
+    return sum;
+  }
+
+  public static int averageArray (int [] numbers){
+    int sum =0;
+    double result = sum;
+    for (int i =0; i < numbers.length; i++){
+      result += numbers[i];
+    }
+    avg = result % numbers.length;
+    return avg;
+  }
+
+  public static int maxArray (int [] numbers){
+    int max = numbers[0]
+    for (int i =0; i < numbers.length; i++){
+      if (max < numbers[i]){
+        max = numbers[i];
+      }
+    }
+    return max;
+  }
+
+  public static void main(String[] args) {
+    int[] numbers = {4, 8, 15, 16, 23, 42};
+
+    int sum = sumArray(numbers);
+    double avg = averageArray(numbers);
+    int max = maxArray(numbers);
+
+    System.out.println("合計: " + sum);
+    System.out.println("平均: " + avg);
+    System.out.println("最大値: " + max);
+  }
+}
+❌ 修正が必要なところ
+
+averageArray の戻り値の型
+public static int averageArray (int [] numbers)
+→ 平均は小数も出るので、int ではなく double にするべきです。
+
+averageArray の処理
+avg = result % numbers.length;
+→ % は「余りを求める演算子」です。
+👉 平均は「合計 ÷ 要素数」なので、正しくは / を使います。
+
+maxArray の文法エラー
+int max = numbers[0]
+→ セミコロン ; が抜けています。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+最終問題改善版：
+
+public class Main {
+  // ここに3つのメソッドを定義してください
+  public static int sumArray (int [] numbers){
+    int sum =0;
+    for (int i =0; i < numbers.length; i++){
+      sum += numbers[i];
+    }
+    return sum;
+  }
+
+  public static double averageArray (int [] numbers){
+    int sum =0;
+    for (int i =0; i < numbers.length; i++){
+      sum += numbers[i];
+    }
+    double result = sum;
+    return result / numbers.length;
+    /*return (double)sum / numbers.length;*/
+  }
+
+  public static int maxArray (int [] numbers){
+    int max = numbers[0];
+    for (int i =0; i < numbers.length; i++){
+      if (max < numbers[i]){
+        max = numbers[i];
+      }
+    }
+    return max;
+  }
+
+  public static void main(String[] args) {
+    int[] numbers = {4, 8, 15, 16, 23, 42};
+
+    int sum = sumArray(numbers);
+    double avg = averageArray(numbers);
+    int max = maxArray(numbers);
+
+    System.out.println("合計: " + sum);
+    System.out.println("平均: " + avg);
+    System.out.println("最大値: " + max);
+  }
+}
+
+✅ public static double averageArray(double[] numbers) はアリか？
+
+結論：動きますし、エラーにもなりません。
+ただし、今回のケースだと ベストな選択肢ではない です。
+
+🔹 なぜ？
+今回の numbers は
+int[] numbers = {4, 8, 15, 16, 23, 42};
+つまり 整数の配列（int[]） です。
+
+ケース1: int[] を渡したい場合
+public static double averageArray(int[] numbers)
+👉 これが自然です。
+なぜなら、配列が int で作られているので、そのまま受け取れるからです。
+
+ケース2: double[] を渡したい場合
+public static double averageArray(double[] numbers)
+👉 こう書くと、呼び出すときも double[] で配列を作らなければなりません。
+double[] numbers = {4.0, 8.0, 15.0, 16.0, 23.0, 42.0};
+double avg = averageArray(numbers);
+
+つまり、int[] と double[] は別物 なので、int[] を渡したいならメソッド側も int[] にしておく方が自然です。
+
+🔹 実務的な観点
+データが 最初から小数を含む（例：テストの点数が小数点あり） → double[] が良い。
+データが 整数だけ（例：個数、年齢、売上個数など） → int[] で十分。
+そして 平均を計算するときだけ double にキャストすればOK です。
+
+✅ まとめ
+public static double averageArray(int[] numbers) → 今のケースでは正解
+public static double averageArray(double[] numbers) → 使えますが、double[] を用意しないといけない
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+とてもいい質問です！✨
+コードをそのまま見て、なぜ「ちょっと惜しい」のかを整理しますね👇
+
+あなたの書いたコード
+public static double averageArray (int [] numbers){
+    int sum =0;
+    double result = sum;
+    ...
+}
+
+❌ 問題点
+result に代入しているタイミングが早すぎる
+sum がまだ 0 のときに double result = sum; をしているので、
+その後に for文で sum を増やしても、result は更新されません。
+
+👉 結果として「result には常に 0 のまま」になってしまいます。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+❌ ミスしているところ
+double result = sum;
+avg = result / numbers.length;
+return avg;
+
+avg が宣言されていない
+　→ avg という変数はどこにも宣言していないのでコンパイルエラーになります。
+
+double result = sum; の意味が弱い
+　→ この時点では sum の合計は出ているので、すぐに平均を計算して返せば十分です。
+　　わざわざ result と avg の二重変数にする必要はありません。
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+✅ ポイント
+
+double result = sum; → int から double への暗黙的変換。正しい使い方。
+return result / numbers.length; → 平均を計算して返しているのでOK。
+コメントにある return (double) sum / numbers.length; → より短い書き方。
+つまり、あなたの書き方でも正解であり、シンプル版も正解です。
+
+🎯 結論
+あなたの理解通り、やり方は間違っていません。
+違いは「変数を使って丁寧に書く」か「1行でまとめる」かだけ。
+学習初期では 変数を使った書き方を優先 して正解です。
+
+👉 ここまでで「staticメソッドの基礎〜応用＋最終テスト」まで完了しました 🎉
