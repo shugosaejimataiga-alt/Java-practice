@@ -4,14 +4,15 @@
 Java で ArrayList を使うには、まず import java.util.ArrayList; を書きます。
 宣言と初期化の例は以下の通りです。
 
-import java.util.ArrayList;  // ArrayListを使うために必要なimport文
+import java.util.ArrayList;  ArrayListを使うために必要なimport文
 
 public class Main {
     public static void main(String[] args) {
-        // String型のArrayListを宣言して初期化
+        
+        String型のArrayListを宣言して初期化
         ArrayList<String> fruits = new ArrayList<String>();
 
-        // int型のArrayListを宣言して初期化（ラッパークラスIntegerを使う）
+        int型のArrayListを宣言して初期化（ラッパークラスIntegerを使う）
         ArrayList<Integer> numbers = new ArrayList<Integer>();
 
         System.out.println("ArrayListの宣言と初期化ができました！");

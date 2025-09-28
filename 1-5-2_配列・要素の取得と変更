@@ -6,16 +6,17 @@
 
 public class Main {
   public static void main(String[] args) {
-    // 配列を宣言と初期化
+    
+    配列を宣言と初期化
     int[] numbers = {10, 20, 30, 40, 50};
 
-    // 要素の取得（インデックスを指定）
-    System.out.println(numbers[0]); // 先頭の要素（10）
-    System.out.println(numbers[2]); // 3番目の要素（30）
+    要素の取得（インデックスを指定）
+    System.out.println(numbers[0]); 先頭の要素（10）
+    System.out.println(numbers[2]); 3番目の要素（30）
 
-    // 要素の変更
-    numbers[1] = 99; // 2番目の要素を20から99に変更
-    System.out.println(numbers[1]); // 99 と表示される
+    要素の変更
+    numbers[1] = 99; 2番目の要素を20から99に変更
+    System.out.println(numbers[1]); 99 と表示される
   }
 }
 
