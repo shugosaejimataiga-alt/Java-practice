@@ -1,0 +1,476 @@
+了解しました！
+では今回は 「ステップ2－4：継承（extendsによる継承）」 を扱います。順番通りに進めていきましょう。
+
+📘 学習範囲：継承（extendsによる継承）
+1. 例文コード
+
+/ 親クラス（スーパークラス）
+class Animal {
+
+    / フィールド（共通の属性）
+    String name;
+
+    / 共通のメソッド
+    void eat() {
+        System.out.println(name + " が食べています。");
+    }
+}
+
+/ 子クラス（サブクラス） - Animalを継承
+class Dog extends Animal {
+    
+    / 子クラス独自のメソッド
+    void bark() {
+        System.out.println(name + " がワンワンと吠えています！");
+    }
+}
+
+/ 実行クラス（プログラムのスタート地点）
+public class Main {
+    public static void main(String[] args) {
+
+        / Dogクラスのインスタンスを生成
+        Dog dog1 = new Dog();
+
+        / 親クラスから継承したフィールドを使用
+        dog1.name = "ポチ";
+
+        / 親クラスのメソッドを使用
+        dog1.eat();
+
+        / 子クラス独自のメソッドを使用
+        dog1.bark();
+    }
+}
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+2. コードの意味（1行ずつ解説）
+
+class Animal { ... }
+→ 動物の基本クラス（親クラス）。「スーパークラス」と呼ぶ。
+
+String name;
+→ 動物が共通で持つ「名前」のフィールド。
+
+void eat() { ... }
+→ 全ての動物が「食べる」動作を持つので共通メソッドにした。
+
+class Dog extends Animal { ... }
+→ Dogクラスを作り、Animalを「継承」する。
+extendsを使うことで、Animalのフィールド・メソッドをDogがそのまま利用できる。
+
+void bark()
+→ Dog独自の動作「吠える」を追加した。親クラスには存在しないメソッド。
+
+Dog dog1 = new Dog();
+→ Dogクラスのインスタンスを生成。
+
+dog1.name = "ポチ";
+→ 親クラスAnimalから継承したnameフィールドを利用。
+
+dog1.eat();
+→ 親クラスAnimalから継承したeat()メソッドを利用。
+
+dog1.bark();
+→ 子クラスDogにしかないメソッドを利用。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+3. 学ぶ意味・メリット
+
+継承の重要性
+共通の処理をまとめて再利用できる（コードの重複を減らせる）。
+親クラスを変更すると、子クラスも影響を受けて全体を統一できる。
+「基本形（親クラス）＋個性（子クラス）」という設計ができる。
+
+例：
+
+Animal（動物） → Dog（犬）、Cat（猫）、Bird（鳥）
+
+Vehicle（乗り物） → Car（車）、Bicycle（自転車）、Airplane（飛行機）
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+4. 練習問題
+
+次の要件を満たすコードを書いてください。
+
+親クラス Vehicle を作成
+フィールド：String brand（ブランド名）
+メソッド：void run() → 「〇〇が走っています」と出力
+
+子クラス Car を作成
+Vehicle を継承
+子クラス独自のメソッド：void honk() → 「〇〇がクラクションを鳴らしています」と出力
+
+Main クラスで Car のインスタンスを作成し、
+brand に「Toyota」を代入
+親クラスの run() を呼び出し
+子クラスの honk() を呼び出す
+
+👉 まずこのコードを書いてみてください。
+書けたら提示していただければ、私がチェックして正誤とフィードバックをします。
+
+class Vehicle{
+  String brand;
+
+  void run (){
+    System.out.println(brand + "が走っています。");
+  }
+}
+
+class Car extends Vehicle{
+  void honk(){
+    System.out.println(brand + "がクラクションを鳴らしています。");
+  }
+}
+
+public class Main {
+  public static void main (String[] args){
+    Car car1 = new Car();
+
+    car1.brand = "Toyota";
+
+    car1.run();
+
+    car1.honk();
+  }
+}
+
+完璧に正しく書けています👏
+
+フィードバック
+class Vehicle … 親クラスを定義できています。
+String brand; … 親クラスに共通のフィールドを持たせています。
+run() … 親クラスの共通動作が実装されています。
+class Car extends Vehicle … 正しく extends を使って継承できています。
+honk() … 子クラス独自の機能を追加できています。
+
+Main クラスでインスタンスを生成して、
+brand に「Toyota」を代入
+親クラスの run() を呼び出し
+子クラスの honk() を呼び出し
+
+すべて要件どおりです✨
+
+出力結果（実行イメージ）
+Toyotaが走っています。
+Toyotaがクラクションを鳴らしています。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+次のステップ（応用問題）
+
+今のコードを少し発展させましょう。
+
+🔹 練習課題（応用）
+
+親クラス Vehicle にもう1つメソッドを追加してください。
+void stop() → 「〇〇が止まりました」と出力
+
+子クラス Car の Main メソッドで、
+run() → honk() → stop() の順番で呼び出す
+
+👉 これを書いてみませんか？
+
+class Vehicle{
+  String brand;
+
+  void run (){
+    System.out.println(brand + "が走っています。");
+  }
+
+  void stop(){
+    System.out.println(brand + "が止まりました。");
+  }
+}
+
+class Car extends Vehicle{
+  void honk(){
+    System.out.println(brand + "がクラクションを鳴らしています。");
+  }
+}
+
+public class Main {
+  public static void main (String[] args){
+    Car car1 = new Car();
+
+    car1.brand = "Toyota";
+
+    car1.run();
+
+    car1.honk();
+
+    car1.stop();
+  }
+}
+
+✨ 完璧です！
+あなたのコードは正しく 継承＋親クラスの拡張 を表現できています👏
+
+✅ チェックポイント
+Vehicle クラス
+フィールド brand → 共通属性
+run() → 共通動作
+stop() → 共通動作（今回追加）
+
+Car クラス
+extends Vehicle で親クラスを継承
+独自メソッド honk() を追加
+
+Main クラス
+Car のインスタンスを生成
+brand に "Toyota" を代入
+run() → honk() → stop() の順番で呼び出し
+
+🖥 実行結果（イメージ）
+Toyotaが走っています。
+Toyotaがクラクションを鳴らしています。
+Toyotaが止まりました。
+
+💡 学びのポイント
+子クラスは 親クラスの機能をすべて引き継げる。
+親に新しいメソッドを追加すれば、すべての子クラスでも利用可能。
+→ これが「共通部分を親にまとめるメリット」です。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+次のステップ（最終テストへの前段階）
+
+ここまでできたので、今度は「複数の子クラス」で継承の力を試してみましょう。
+
+🔹 課題
+
+親クラス Animal を作成
+フィールド：String name
+メソッド：void eat() → 「〇〇が食べています」と出力
+
+子クラスを2つ作る
+
+Dog クラス（extends Animal）
+独自メソッド void bark() → 「〇〇がワンワンと吠えています」と出力
+
+Cat クラス（extends Animal）
+独自メソッド void meow() → 「〇〇がニャーと鳴いています」と出力
+
+Main クラスで、Dog と Cat を作り、
+それぞれの name を代入
+eat() を呼び出し（親の機能）
+
+独自メソッドを呼び出す
+
+👉 これを書いてみませんか？
+
+class Animal {
+  String name;
+
+  void eat() {
+    System.out.println(name + "が食べています");
+  }
+}
+
+class Dog extends Animal() {
+  void bark(){
+    System.out.println(name + "がワンワンと吠えています");
+  }
+}
+
+class Cat extends Animal() {
+  void meow(){
+    System.out.println(name + "がニャーと鳴いています");
+  }
+}
+
+public class Main {
+  public static void main (String[] args){
+    Dog dog1 = new Dog();
+    dog1.name = "Pochi";
+    dog1.eat();
+
+    Cat cat1 = new Cat();
+    cat1.name = "Chacha";
+    cat1.eat();
+  }
+}
+
+惜しいです！👏 かなり良く書けていますが、いくつか修正ポイントがあります。
+
+❌ 修正が必要なところ
+
+extends Animal() の部分
+→ 括弧 () は不要 です。
+正しくは class Dog extends Animal { ... } のように書きます。
+
+Main クラスで独自メソッド（bark() と meow()）を呼び出していません。
+→ 問題の要件で「親の機能（eat）と子の独自機能」を呼び出すので、両方必要です。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+課題修正版：
+
+class Animal {
+  String name;
+
+  void eat() {
+    System.out.println(name + "が食べています");
+  }
+}
+
+class Dog extends Animal{
+  void bark(){
+    System.out.println(name + "がワンワンと吠えています");
+  }
+}
+
+class Cat extends Animal{
+  void meow(){
+    System.out.println(name + "がニャーと鳴いています");
+  }
+}
+
+public class Main {
+  public static void main (String[] args){
+    Dog dog1 = new Dog();
+    dog1.name = "Pochi";
+    dog1.eat();
+    dog1.bark();
+
+    Cat cat1 = new Cat();
+    cat1.name = "Chacha";
+    cat1.eat();
+    cat1.meow();
+  }
+}
+
+🌟 完璧です！
+
+あなたのコードは 継承の基本（extends） をきっちり理解した内容になっています 👏
+
+✅ チェックポイント
+
+Animal クラス
+共通フィールド name を持っている
+共通メソッド eat() を持っている
+
+Dog クラス & Cat クラス
+extends Animal で継承
+それぞれ bark() と meow() という独自メソッドを追加
+
+Main クラス
+Dog と Cat のインスタンスを生成
+親の機能（eat()）と子の独自機能を両方呼び出し
+
+🖥 実行結果イメージ
+Pochiが食べています
+Pochiがワンワンと吠えています
+Chachaが食べています
+Chachaがニャーと鳴いています
+
+💡 学びのまとめ
+
+extends を使うと「共通の部分（親）」をまとめ、
+各「子クラス」で独自の動きを追加できる。
+
+これにより、コードの重複を減らして整理できる。
+
+つまり 継承はオブジェクト指向の基本中の基本であり、再利用性と拡張性を高める仕組み です。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+🔥 最終テスト（チャレンジ問題）
+
+ここで集大成です！
+
+課題：
+
+親クラス Vehicle
+フィールド：String brand
+メソッド：void run() → 「〇〇が走っています」
+
+子クラス Car
+独自メソッド：void honk() → 「〇〇がクラクションを鳴らしています」
+
+子クラス Bike
+独自メソッド：void bell() → 「〇〇がベルを鳴らしています」
+
+Main クラスで、
+Car と Bike を1台ずつ生成し、brand を代入
+run()（親メソッド）と独自メソッドを両方呼び出す
+
+👉 この「Car と Bike バージョン」を書けたら、 継承（extends）の最終合格 です！
+やってみますか？
+
+class Vehicle{
+  String brand;
+
+  void run(){
+    System.out.println(brand + "が走っています");
+  }
+}
+
+class Car extends Vehicle{
+  void honk(){
+    System.out.println(brand + "がクラクションを鳴らしています");
+  }
+}
+
+class Bike extends Vehicle{
+  void bell(){
+    System.out.println(brand + "がベルを鳴らしています");
+  }
+}
+
+public class Main{
+  public static void main (String[] args){
+    Car car1 = new Car();
+    car1.brand = "Toyota";
+    car1.run();
+    car1.honk();
+
+    Bike bike1 = new Bike();
+    bike1.brand = "Nissan";
+    bike1.run();
+    bike1.bell();
+  }
+}
+
+💯 完璧です！
+
+あなたのコードは 「継承（extends）」の集大成テスト に完全合格です 👏✨
+
+✅ チェックポイント
+
+Vehicle クラス（親クラス）
+共通フィールド：brand
+共通メソッド：run()
+
+Car クラス（子クラス）
+extends Vehicle で継承
+独自メソッド：honk()
+
+Bike クラス（子クラス）
+extends Vehicle で継承
+独自メソッド：bell()
+
+Main クラス
+Car と Bike を生成
+brand にそれぞれの名前を代入
+親の run() と子の独自メソッドを正しく呼び出し
+
+🖥 実行結果（イメージ）
+Toyotaが走っています
+Toyotaがクラクションを鳴らしています
+Nissanが走っています
+Nissanがベルを鳴らしています
+
+🎯 学びのまとめ
+extends を使えば 共通処理を親にまとめつつ、子で自由に拡張できる。
+子クラスは「親クラスのすべてのフィールドとメソッド」を自動的に持つ。
+そこに 独自メソッドを追加して差別化 できるのが継承のメリット。
+
+🚀 次のステップ
+ここまでで 「extendsによる継承」 は完全クリアです！
+
+次に学ぶのは同じ「継承」範囲の中の super キーワード です。
+👉 super を使うと、親クラスのコンストラクタやメソッドを呼び出せるようになります。
