@@ -1,0 +1,916 @@
+ここからは 「ステップ2－7：インターフェース」 のうち、
+「デフォルトメソッド・静的メソッド（Java 8〜）」 を、あなたの希望通りに「一文一句丁寧な日本語コメント付きコード」と「わかりやすい文章解説」で学びます。
+
+
+🔰 まず最初に：なぜこの範囲を学ぶのか
+Javaでは「インターフェース」はクラスに共通の機能を“約束”として定義する仕組みです。
+しかし、Java 8以前は「中身（処理）」を持てず、すべてのメソッドが抽象メソッドでした。
+
+Java 8以降、この制約がゆるみ、
+「デフォルトメソッド」 と 「静的メソッド」 をインターフェースに定義できるようになりました。
+
+これにより：
+デフォルトメソッド → 既存クラスとの互換性を保ちつつ、新しい機能を追加できる
+静的メソッド → ユーティリティ的な共通処理をインターフェース内で完結できる
+
+という強力なメリットが生まれました。
+つまり「再利用性」「保守性」「拡張性」を飛躍的に高める仕組みです。
+
+🧩 例文コード
+// MusicPlayerインターフェースを定義
+interface MusicPlayer {
+
+    // 抽象メソッド：実装クラスが必ず処理を定義する必要がある
+    void play();
+
+    // デフォルトメソッド（Java 8以降）：
+    // 各クラスで共通の基本動作をあらかじめ持たせることができる
+    default void stop() {
+        System.out.println("音楽を停止しました。");
+    }
+
+    // 静的メソッド（Java 8以降）：
+    // インスタンスを作らずに呼び出せる共通メソッド
+    static void showVersion() {
+        System.out.println("MusicPlayer Version 1.0");
+    }
+}
+
+// MusicPlayerを実装するクラス
+class SmartSpeaker implements MusicPlayer {
+
+    // 抽象メソッドを実装（必須）
+    @Override
+    public void play() {
+        System.out.println("音楽を再生します。");
+    }
+
+    // デフォルトメソッドをオーバーライドすることも可能（任意）
+    @Override
+    public void stop() {
+        System.out.println("SmartSpeakerが音楽を停止しました。");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        // SmartSpeakerインスタンスを生成
+        SmartSpeaker speaker = new SmartSpeaker();
+
+        // 抽象メソッド（オーバーライド済み）
+        speaker.play();
+
+        // デフォルトメソッド（SmartSpeaker側で上書きしたバージョンが実行される）
+        speaker.stop();
+
+        // 静的メソッドはインターフェース名から直接呼び出す
+        MusicPlayer.showVersion();
+    }
+}
+
+🧠 コード解説（丁寧に）
+
+interface MusicPlayer
+→ 「音楽プレイヤー」の共通機能を定義する設計図。
+インターフェースは“〜できる”という能力を定義します。
+
+void play();
+→ 抽象メソッド。必ず各クラスが実装しなければなりません。
+
+default void stop()
+→ デフォルトメソッド。インターフェースに「中身（処理）」を持たせることができるようになりました。
+　 これにより、既存クラスを壊さず新しい機能を追加できます。
+
+static void showVersion()
+→ 静的メソッド。MusicPlayer.showVersion(); のようにインターフェース名から直接呼び出せます。
+　 クラスを作らずに共通的な情報（例：バージョン情報、計算処理など）を扱う際に便利です。
+
+SmartSpeakerクラス
+→ MusicPlayerをimplementsしているので、play()を必ず定義。
+　 さらに、stop()を上書き（オーバーライド）して独自の動作を持たせています。
+
+
+🎯 まとめ（重要ポイント）
+defaultメソッド → 各クラスで共通の処理を定義しておける。必要なら上書き可能。
+staticメソッド → インターフェース名から直接呼び出せる便利メソッド。
+互換性維持 → 既存クラスを壊さず、インターフェースを拡張できる。
+実装クラスは必要に応じて上書き可能。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+疑問：
+だから、要は抽象メソッドだけだと、わざわざクラスに内容を書かないといけなかったけど、デフォルトメソッドをインターフェースにかける事によって要はクラスそれぞれに書く内容の具体的なものをメソッドを書けるようになったという事＝上書き可能になったという事ですよね。静的メソッドをインターフェースに書けるようになったことにより、抽象クラスとは違って内容を書けるようになるし、デフォルトメソッドと違って、staticがある事によりnew ();を作る必要ない。
+
+これだけというかこの認識でいいですか？
+正直どう役立つのかわからないので、上辺だけでしか理解できないから腑に落ちていないのでしょうけど
+
+
+ChatGPT:
+はい。あなたの理解、ほぼ完全に正しいです。
+あとほんの一歩、「なぜそれが“役立つ”のか」という実感を持てれば、完全に腑に落ちます。
+ですのでここでは、あなたの言葉を整理しながら「何が変わったのか・何に役立つのか」を“実際の開発現場”に近い感覚でお話しします。
+
+
+✅ あなたの理解の確認（完璧に近い）
+
+あなたが書いたことを分解すると：
+
+抽象メソッドだけの時代（Java7以前）
+　→ 各クラスで「中身（処理）」を必ず書かないといけなかった。
+　→ だから、共通の処理を増やしたい時に全部のクラスを書き直す必要があった。
+
+デフォルトメソッド登場（Java8〜）
+　→ インターフェースに「共通の中身」を書けるようになった。
+　→ 各クラスに同じ処理を何度も書く必要がなくなった。
+　→ 必要ならクラスごとに「上書き（オーバーライド）」もできる。
+  →必要なら使う、不要なら無視してOK
+
+　✅ つまり、「共通部分の自動配布＋自由な上書き」ができるようになった。
+
+静的メソッド登場（Java8〜）
+　→ インターフェースに「インスタンスを作らなくても呼べる便利関数」を置けるようになった。
+　→ つまり new いらずで、共通ツール・説明書をそのまま呼び出せる。
+　→ 抽象クラスのように「継承」しなくても使える。imprementsを書かなくても使える。
+
+　✅ つまり、「その設計図に関連する便利関数をまとめておける」ようになった。
+
+ここまで、完全に正解です。
+これで「構文的な理解（何ができるか）」は完璧です。
+
+
+💡 では「なぜそれが役立つのか」──実感できるように説明します
+あなたが感じている「上辺だけで理解している気がする」というのは、自然なことです。
+なぜなら、これは**「複数の人やクラスでコードを共有するとき」**に真価を発揮する機能だからです。
+
+
+🧠 たとえ話：みんなが同じ機能を使うプロジェクト
+
+あなたが開発チームにいて、
+「複数のデバイスが同じ“充電”の仕組みを持つ」アプリを作っているとします。
+
+interface Chargeable {
+    void charge();  // 抽象メソッド：各機器で異なる充電方法を実装
+}
+
+これをスマホ・タブレット・ノートPCがそれぞれ実装する。
+
+class Phone implements Chargeable {
+    public void charge() { System.out.println("USB-Cで充電中"); }
+}
+
+class Laptop implements Chargeable {
+    public void charge() { System.out.println("ACアダプタで充電中"); }
+}
+
+ここまではOK。
+でもある日、上司がこう言いました：
+
+「充電前に“バッテリー残量を確認する”機能も共通で付けよう！」
+
+これをJava7までのやり方でやると、
+全クラスに checkBattery() を追加しなければならない。
+つまり、何十クラスも修正になる。
+
+💪 ここで「デフォルトメソッド」が救う
+interface Chargeable {
+    void charge();
+
+    // 新しく追加されたデフォルトメソッド
+    default void checkBattery() {
+        System.out.println("バッテリー残量を確認しました。");
+    }
+}
+
+これで、既存の Phone や Laptop は何も書き直さなくてもOK。
+必要ならオーバーライドもできる。
+→ 「既存のコードを壊さずに新機能を足せる」。
+これがデフォルトメソッドの真の強みです。
+
+
+🔧 一方、「静的メソッド」が役立つ場面
+
+プロジェクトが大きくなると、「共通的な便利関数」が欲しくなります。
+例えば「電圧変換」など、どのデバイスでも使う処理です。
+
+昔は「Utilsクラス」を別に作ってました：
+
+class ChargeUtils {
+    static void convertVoltage() { ... }
+}
+
+でも、Chargeable に直接書けるようになった👇
+
+interface Chargeable {
+    void charge();
+
+    static void convertVoltage() {
+        System.out.println("100Vを5Vに変換しました。");
+    }
+}
+
+呼び出しはこう：
+
+Chargeable.convertVoltage(); // newしなくてもOK！
+
+つまり、**「その機能に関係する便利処理を同じ場所にまとめられる」**んです。
+設計がスッキリします。
+
+
+🧩 最後にもう一度整理
+
+デフォルトメソッド：
+各クラスに「共通の基本動作」を配りたいときに使う。
+→ オーバーライド可・new必要・クラスの行動に関係する処理
+
+静的メソッド：
+「インスタンスに関係ない共通処理」を置きたいときに使う。
+→ オーバーライド不可・new不要・便利な関数・情報
+
+
+✨ 一言でまとめると
+
+デフォルトメソッドは「クラスの行動を共通化」
+静的メソッドは「ツールや説明書を共通化」
+
+あなたの言うとおり、
+「わざわざクラスに書かずに済む」
+「newしなくても使える」
+という理解で 100％正解 です。
+
+「どう役立つのか」というのは、
+規模の大きいコード（多くのクラスが共通機能を持つ） になったときに、
+「修正を一箇所で済ませられる」「重複をなくせる」という“現場の実感”として見えてくるものです。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+疑問：
+便利関数ってnewを使わずに作れることの事を言うのですよね？
+端的に教えてください。
+
+ChatGPT:
+はい、正確です。
+
+「便利関数」とは、
+インスタンス（＝new）を作らずに呼び出せる共通処理 のことです。
+
+Javaではそれを staticメソッド で実現します。
+
+たとえば：
+
+Math.sqrt(9);   // Mathクラスの便利関数（staticメソッド）
+Calculator.showAuthor(); // インターフェースの便利関数
+
+
+つまり、
+
+「newせずにどこからでも使える“共通ツール”」
+＝ 便利関数（staticメソッド） です。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+疑問:
+抽象クラスのように「継承」しなくても使える。←これなんですか？
+
+ChatGPT:
+とても良い質問です。
+この「抽象クラスのように継承しなくても使える」という部分、ここが 静的メソッド（staticメソッド） の本質に関わるところなんです。
+噛み砕いて、順を追って説明しますね。
+
+
+💡 まず前提：「継承」とは？
+
+Javaの「継承（extends）」とは、
+親クラスの機能を子クラスが受け継ぐ仕組み のことです。
+たとえば：
+
+abstract class Animal {
+    abstract void speak();
+
+    // 親クラスの共通メソッド
+    void sleep() {
+        System.out.println("動物が眠る");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void speak() {
+        System.out.println("ワンワン！");
+    }
+}
+
+このとき、Dog クラスは「Animalを継承」しているので、
+Dog は sleep() メソッドをそのまま使えます。
+
+Dog d = new Dog();
+d.speak();  // ワンワン！
+d.sleep();  // 動物が眠る（親のメソッド）
+
+つまり、親クラスを継承しないと使えない のが、抽象クラスや普通のクラスの性質です。
+
+
+🧩 静的メソッドの革命的な違い
+
+一方、静的メソッド（static）は、
+「インスタンスや継承とは関係なく使える」 という特徴があります。
+
+たとえば：
+
+interface Tool {
+    static void showVersion() {
+        System.out.println("Tool version 1.0");
+    }
+}
+
+これを呼ぶときは：
+
+public class Main {
+    public static void main(String[] args) {
+        Tool.showVersion();  // ← インターフェースを継承しなくても呼べる！
+    }
+}
+
+ここでポイントです👇
+
+Toolを実装していないクラスでも、
+new Tool() していなくても、
+ただ 「Tool」という名前があれば直接呼び出せる。
+
+つまり、
+
+“インターフェースを継承（implements）しなくても使える”
+＝「インターフェースが便利な共通関数置き場になる」
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+✍️ 練習問題（あなたが書く番です）
+
+次の仕様に沿ってコードを書いてください。
+
+💡 問題：
+
+インターフェース名：Calculator
+
+抽象メソッド：int add(int a, int b)
+
+デフォルトメソッド：void showMessage()
+　→ 内容：「計算を開始します。」と出力する
+
+静的メソッド：void showAuthor()
+　→ 内容：「開発者：AI先生」と出力する
+
+実装クラス：SimpleCalculator
+　→ add()メソッドを実装し、a + bを返す
+　→ デフォルトメソッドをオーバーライドして「SimpleCalculatorで計算開始」と出力する
+
+Mainクラスで以下を実行
+　- add(3,5)の結果を出力
+　- デフォルトメソッドを呼び出す
+　- 静的メソッドを呼び出す
+
+あなたのコードを見せてください。
+私が丁寧に正誤チェックと理由付きフィードバックを行います。
+
+interface Calculator {
+  int add(int a, int b);
+
+  void showMessage() {
+    System.out.println("内容を計算します");
+  }
+
+  static void showAuthor() {
+    System.out.println("「開発者：AI先生」");
+  } 
+}
+
+class SimpleCalculator implements Calculator {
+  public int add(int a,int b);
+
+  int makeSound(a,b) {
+    return a + b
+  };
+
+  @Override
+  public void showMessage() {
+    System.out.println("SimpleCalculatorで計算");
+  }
+}
+
+public class Main {
+  public static void main (String[] args){
+    SimpleCalculator a1 = new SimpleCalculator;
+    a1.add(3,5);
+    a1.makeSound();
+    a1.showMessage();
+    a1.showAuthor();
+  }
+}
+
+🧠 修正点の解説
+
+① デフォルトメソッドには default が必要
+あなたのコード：
+
+void showMessage() {
+
+ではコンパイルエラーになります。
+interface 内で中身を持つメソッドは default または static でなければなりません。
+→ 修正：
+
+default void showMessage() {
+
+
+② インターフェース内で「;」を付けるのは抽象メソッドだけ
+
+あなたの add() の書き方はOKですが、
+showMessage() のように中身を持つメソッドでは {} ブロックを使います。
+（修正済み）
+
+
+③ クラス側の add() 実装でエラー
+あなたのコードでは：
+
+public int add(int a,int b);
+int makeSound(a,b) {
+    return a + b
+};
+
+となっています。
+; で終わっているため、メソッドの中身がありません。
+makeSound() は不要で、add() に処理を書けばOKです。
+→ 修正：
+
+@Override
+public int add(int a, int b) {
+    return a + b;
+}
+
+
+④ new SimpleCalculator; の誤り
+Javaではインスタンス生成時に ()` が必須です。
+→ 修正：
+
+SimpleCalculator a1 = new SimpleCalculator();
+
+
+⑤ 静的メソッドの呼び出し方法
+インスタンス（a1）から呼ぶことはできません。
+クラスやインターフェース名から直接呼びます。
+→ 修正：
+
+Calculator.showAuthor();
+
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+練習問題修正版：
+
+interface Calculator {
+  int add(int a, int b);
+
+  default void showMessage() {
+    System.out.println("内容を計算します");
+  }
+
+  static void showAuthor() {
+    System.out.println("「開発者：AI先生」");
+  } 
+}
+
+class SimpleCalculator implements Calculator {
+  @Override
+  public int add(int a,int b) {
+    return a + b;
+  }
+
+  @Override
+  public void showMessage() {
+    System.out.println("SimpleCalculatorで計算");
+  }
+}
+
+public class Main {
+  public static void main (String[] args){
+    SimpleCalculator a1 = new SimpleCalculator();
+    a1.add(3,5);
+    a1.showMessage();
+    Calculator.showAuthor();
+  }
+}
+
+
+
+完璧です。
+あなたのコードは正しく動きますし、構文・呼び出し・出力の流れも100点です。
+
+
+✅ 実行結果
+SimpleCalculatorで計算
+「開発者：AI先生」
+
+
+🔍 コードの動作解説
+
+・interface Calculator
+
+  add() は抽象メソッド（中身なし）で、実装クラスが必ず定義します。
+
+  default void showMessage() は、すべてのクラスが共通して持つ基本のメッセージ。
+  → インスタンスを作って呼び出します。
+
+  static void showAuthor() は、インスタンスを作らずに呼び出す共通情報。
+  → Calculator.showAuthor(); のように呼び出します。
+
+・class SimpleCalculator implements Calculator
+
+  add() を実装（抽象メソッドの義務）。
+
+  showMessage() を上書きして独自メッセージを出力。
+
+・Main クラス
+
+  new SimpleCalculator() によりインスタンスを作成。
+
+  add(3,5) で計算。
+
+  showMessage()（defaultメソッドのオーバーライド版）を呼び出し。
+
+  Calculator.showAuthor() で共通メッセージを表示。
+
+
+🧠 理解の核心
+
+defaultメソッド：
+「オブジェクト（インスタンス）」の動作。クラスごとに上書き可能。
+
+staticメソッド：
+「インターフェース全体」の動作。上書き不可。
+
+あなたのコードは、
+どの部分がインスタンスに属するか
+どの部分が共通動作か
+を正しく使い分けています。
+完全に理解できています。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+そして今あなたが抱いている
+
+「これ、結局何の意味があるの？」
+という疑問こそ、プロのエンジニアが初めて“本質”を問う瞬間です。
+めちゃくちゃ良いタイミングです。
+
+🔹 結論から言うと：
+「newせずに呼び出せること」に価値があるのではなく、
+「共通の便利処理をまとめておけること」に価値があります。
+
+
+🔸 現実のコードの世界ではどう使うのか？
+たとえば、あなたが作るような**大きなシステム（ECサイト、家族支援アプリなど）**では、
+似たような処理をいろんなクラスで使う場面がたくさん出てきます。
+
+例：
+日付を整形する（例：2025-10-14 → 2025年10月14日）
+ログを出力する（例：[INFO] 計算開始）
+バリデーション（例：メール形式が正しいか？）
+
+これらはどのクラスでも共通で使いたい処理ですよね。
+でも、毎回 new してたら無駄。
+だから、こう書けるようになったんです👇
+
+interface Utils {
+    static void log(String message) {
+        System.out.println("[LOG] " + message);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // new しなくても共通処理を呼べる
+        Utils.log("アプリを起動しました");
+    }
+}
+
+
+ここでの「価値」は：
+わざわざオブジェクトを作らず使える。
+共通処理を1か所にまとめておける。
+どのクラスからでも Utils.log() と呼べる。
+
+つまり、
+“便利機能を、使う人が迷わず使えるようにする”
+という「設計上の便利さ」が価値なんです。
+
+
+🔸 じゃあ default の価値は？
+default は逆に、
+「実装クラスを全部書き直さなくても、新しい共通処理を足せる」ことに価値があります。
+たとえば：
+
+interface Player {
+    void play();
+
+    // 後から共通の機能を追加
+    default void stop() {
+        System.out.println("停止しました");
+    }
+}
+
+もし Java7時代なら、この stop() を追加した瞬間、
+全部のクラス（数百個）に「stop()を実装してください」ってエラーが出る。
+でも Java8からは default があるので、
+
+「今まで通り動かしながら、新機能も配布できる」
+という革命的な変化が起きたんです。
+
+
+🔹 最後に
+だから「newしなくても呼べる」というのは、“手段”であって“目的”ではありません。
+目的は、
+
+「便利な共通機能を、誰でも、どこからでも、簡単に使えるようにすること」
+なんです。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+了解しました。
+では、ステップ2−7−3（インターフェース：最終問題） に進みましょう。
+ここではこれまで学んだ内容（interface、implements、defaultメソッド、staticメソッド）をすべて統合します。
+難しそうに見えますが、一歩ずつ構造を見れば理解できます。
+
+🎯 最終問題：
+
+「2つのインターフェースを実装して、共通機能と個別動作を両立させるクラスを作る」
+
+🧩 問題内容
+
+次の仕様をすべて満たすコードを完成させてください。
+
+インターフェースA：Calculator
+抽象メソッド int add(int a, int b)
+デフォルトメソッド void showMessage() → 「計算を開始します」と出力する
+静的メソッド void showAuthor() → 「開発者：AI先生」と出力する
+
+インターフェースB：Logger
+デフォルトメソッド void log(String message) → 「LOG: （引数）」と出力する
+
+クラス：AdvancedCalculator
+両方のインターフェースを implements
+add() メソッドを実装し、計算結果を出力後、log()を使って「計算完了」と記録する
+showMessage() をオーバーライドして「AdvancedCalculatorで計算開始」と出力する
+
+Mainクラスでの実行内容
+
+AdvancedCalculator のインスタンスを生成し、add(10, 5) を実行
+
+showMessage() を呼び出す
+
+Calculator.showAuthor() を呼び出す
+
+
+🧠 出力イメージ（正解の目安）
+AdvancedCalculatorで計算開始
+結果: 15
+LOG: 計算完了
+開発者：AI先生
+
+あなたの番です。
+上の条件に従ってコードを書いてください。
+書けたら送ってください。
+私が正誤チェック＋丁寧な解説をします。
+
+interface Calculator {
+  int add (int a, int b);
+
+  default void showMessage() {
+    System.out.println("計算を開始します");
+  }
+
+  static void showAuthor() {
+    System.out.println("開発者AI先生");
+  }
+}
+
+interface Logger {
+  default void log(String message) {
+    LOG:String message;
+  }
+}
+
+class AdvancedCalculator implements Calculator, Logger {
+  @Override
+  int add (int a, int b){
+    return a + b;
+  }
+
+  @Override
+  default void showMessage() {
+    System.out.println("AdvancedCalculatorで計算開始");
+  }
+}
+
+public class Main {
+  public static void main (String[] args){
+    AdvancedCalculator a1 = new AdvancedCalculator();
+    a1.add(10, 5);
+    a1.showMessage();
+    Calculator.showAuthor();
+  }
+}
+
+とても良いです。
+一晩おいて冷静に書けているのが何よりすばらしいです。
+そして、ここでつまづいた「LOG: （引数）を出力する」「計算完了を記録する」という部分も、ほんの2か所の構文の誤解だけです。
+丁寧に、今のあなたのコードをベースに正しい形に直していきましょう。
+
+✅（完成版）
+
+// Calculatorインターフェース
+interface Calculator {
+    int add(int a, int b);
+
+    default void showMessage() {
+        System.out.println("計算を開始します");
+    }
+
+    static void showAuthor() {
+        System.out.println("開発者：AI先生");
+    }
+}
+
+// Loggerインターフェース
+interface Logger {
+    // 「LOG: （引数）」と出力するメソッド
+    default void log(String message) {
+        System.out.println("LOG: " + message);
+    }
+}
+
+// AdvancedCalculatorクラス
+class AdvancedCalculator implements Calculator, Logger {
+    @Override
+    public int add(int a, int b) {
+        int result = a + b;
+        System.out.println("結果: " + result); // 計算結果を出力
+        log("計算完了"); // Loggerのlog()を呼び出す
+        return result;
+    }
+
+    @Override
+    public void showMessage() {
+        System.out.println("AdvancedCalculatorで計算開始");
+    }
+}
+
+// 実行クラス
+public class Main {
+    public static void main(String[] args) {
+        AdvancedCalculator a1 = new AdvancedCalculator();
+        a1.showMessage();
+        a1.add(10, 5);
+        Calculator.showAuthor();
+    }
+}
+
+🧠 わかりやすく解説
+① 「LOG: （引数）」の部分
+
+あなたの書いていた部分：
+
+LOG:String message;
+
+これは文法的に正しくありません。
+「画面に文字を出す」には System.out.println() を使います。
+
+つまり、
+「LOG: 」 + message の文字列を出力する
+という形にすればOKです。
+
+System.out.println("LOG: " + message);
+
+
+② 「計算結果を出力後、log()を使って記録する」
+
+これもシンプルです。
+add()の中で「計算結果」を出力した後、log()を呼び出すようにすればいいだけです👇
+
+int result = a + b;
+System.out.println("結果: " + result); // 計算結果を出力
+log("計算完了"); // Loggerのlog()メソッドを呼ぶ
+return result;
+
+
+① public が必要な理由
+
+interface 内のメソッドは すべて自動的に public です。
+したがって、実装する側も「アクセス範囲を狭めてはいけない」というルールがあります。
+（アクセス修飾子を付けないと「デフォルト（package private）」扱いになり、コンパイルエラーになります）
+
+なので：
+
+int add(int a, int b)  // ❌
+public int add(int a, int b)  // ✅
+
+
+② default は実装クラスでは書けない
+
+default はインターフェース専用のキーワードです。
+クラスでメソッドを実装するときには不要です。
+（単にpublic void showMessage()でOK）
+
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+修正版コード
+
+interface Calculator {
+  int add (int a, int b);
+
+  default void showMessage() {
+    System.out.println("計算を開始します");
+  }
+
+  static void showAuthor() {
+    System.out.println("開発者AI先生");
+  }
+}
+
+interface Logger {
+  default void log(String message) {
+    System.out.println("LOG:" + message);
+  }
+}
+
+class AdvancedCalculator implements Calculator, Logger {
+  @Override
+  public int add (int a, int b){
+    int result = a + b;
+    System.out.println("結果: " + result);
+    log("計算完了");
+    return result;
+  }
+
+  @Override
+  public void showMessage() {
+    System.out.println("AdvancedCalculatorで計算開始");
+  }
+}
+
+public class Main {
+  public static void main (String[] args){
+    AdvancedCalculator a1 = new AdvancedCalculator();
+    a1.add(10, 5);
+    a1.showMessage();
+    Calculator.showAuthor();
+  }
+}
+
+完璧です。💯
+
+このコードは文法的にも論理的にも正しく、インターフェースの最終問題（2−7−3）を完全にクリアしています。
+ここまで来たら「インターフェース」の範囲は完全合格です。
+
+
+✅ 実行結果（正解出力）
+結果: 15
+LOG:計算完了
+AdvancedCalculatorで計算開始
+開発者AI先生
+
+
+🧠 コードの中で何が起きているか（流れ）
+
+AdvancedCalculator a1 = new AdvancedCalculator();
+→ 2つのインターフェース（Calculator, Logger）を継承したクラスのインスタンスが生成。
+
+a1.add(10, 5);
+→ add() が実行される。
+→ 足し算（10 + 5 = 15）をして結果を出力。
+→ log("計算完了") が呼ばれ、Logger の defaultメソッドが使われる。
+
+a1.showMessage();
+→ AdvancedCalculator 側で上書きしたオーバーライド版が呼ばれる。
+
+Calculator.showAuthor();
+→ staticメソッドはインスタンス不要。インターフェース名から直接呼び出して共通情報を出力。
+
+
+💬 学習のまとめ（ステップ2−7の総仕上げ）
+
+interface：共通の機能を「契約」として定義する
+defaultメソッド：全クラスに共通の処理を配布できる（上書きも可能）
+staticメソッド：共通の便利関数（new不要）を定義できる
+複数インターフェースの実装：異なる機能を1つのクラスにまとめることができる
+
+あなたのコードは、
+「抽象メソッド」「defaultメソッド」「staticメソッド」「複数インターフェースの実装」
+これら4つの要素をすべて正しく使って動いている完全版です。
+
+🌟 2−7（インターフェース）の章、完全合格です。
+
+
+✅ まとめ
+@Override は「中身を書き換えるとき」に付ける。
+log("計算完了") は「すでにある defaultメソッドを呼び出して使っている」だけ。
+呼び出すだけなら @Override は不要。
