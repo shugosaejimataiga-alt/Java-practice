@@ -1,0 +1,203 @@
+了解しました。
+今回扱う範囲は Stringクラスの「置換」機能（replace / replaceAll） です。
+説明は端的に、しかし一つ一つの意味は丁寧に書きます。
+まずは例文コードから始めます。
+
+🎯 今回の目的
+文字列の中の特定の文字や言葉を、別のものに置き換える方法を理解し、使えるようにする。
+
+🧱 基本の例文コード（置換）
+public class Main {
+  public static void main(String[] args) {
+    String text = "I like apple.";
+
+    // ① replace → 完全一致した文字列を置き換える
+    String result1 = text.replace("apple", "banana");
+
+    // ② replaceAll → 正規表現（パターン）を使って置き換える
+    String result2 = text.replaceAll("a", "A");
+
+    System.out.println(result1); // I like banana.
+    System.out.println(result2); // I like Apple.
+  }
+}
+
+🔍 コードの意味（一言一句）
+
+String text = "I like apple.";
+
+text という名前の変数に文字列を入れている。
+
+
+replace("apple", "banana")
+
+"apple" という部分を "banana" に置き換える。
+普通の置換。部分一致も可能だが「文字列としての一致」で動く。
+
+
+replaceAll("a", "A")
+
+"a" にマッチする 正規表現 を探して "A" に置き換える。
+少し上級。パターン（ルール）で文字列を探して置き換える。
+
+
+削除の基本ルール
+
+特定の文字を消したい → replace("対象", "")
+パターンに合うものを全部消したい → replaceAll("正規表現", "")
+
+
+❗ なぜ重要なのか
+
+Webアプリ：入力内容を整形したり、NGワードを伏せたりする。
+
+ファイル処理：ログやメッセージの整形に使う。
+
+実務では日常的に使う 基本文法の一つ。
+
+特に replaceAll は 正規表現が使えるので強い。
+例えば、数字だけ消す、記号だけ取り除く、などができる。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+📝 練習問題①
+次の文字列の "dog" を "cat" に置き換えてください。
+I have a dog. My dog is cute.
+
+条件
+
+replace を使う
+
+出力結果が "I have a cat. My cat is cute." になるようにする
+
+
+
+✍️ あなたが書くコード（ここに書いてください）
+public class Main {
+  public static void main(String[] args) {
+
+  String text = "I have a dog. My dog is cute.";
+
+  String result1 = replace("dog", "cat");
+
+  System.out.println("”" + result1 "”");
+
+  }
+}
+
+OK、しっかり見ました。
+今回は 2つの修正が必要 です。
+
+❌ 間違っているポイント
+
+replace は text.replace(...) と書く必要がある
+replace は String型のメソッドなので、
+置き換えたい対象の文字列に対して使います。
+
+
+→ text.replace("dog", "cat");
+
+System.out.println の中の文字列結合の書き方が誤り
++ が抜けていますし、引用符が全角になっています。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+練習問題修正版：
+
+public class Main {
+  public static void main(String[] args) {
+
+  String text = "I have a dog. My dog is cute.";
+
+  String result1 = text.replace("dog", "cat");
+
+  System.out.println("\"" + result1 + "\"");
+
+  }
+}
+
+完璧です。
+置換の使い方・print の書き方・エスケープ処理まで 正確 にできています。
+このコードはそのまま実務でも通用します。とても良いです。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+📝 練習問題②（再掲）
+
+次の文字列から 数字をすべて削除 してください。
+
+Phone: 090-1234-5678
+
+条件
+
+replaceAll を使う
+
+数字を表す正規表現：[0-9]
+
+期待される出力
+Phone: -- 
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "Phone: 090-1234-5678";
+
+    String result1 = text.replaceAll("0,1,2,3,4,5,6,7,8,9", "");
+
+    System.out.println(result1);
+  }
+}
+
+とても良いです。
+「削除」は空文字 "" に置き換えるという理解は 正確 です。
+ただし、ここでのポイントは 正規表現の書き方 です。
+
+❌ 今の問題点
+"0,1,2,3,4,5,6,7,8,9"
+
+これは ただの文字列の羅列 であり、数字にマッチしません。
+
+✅ 正しい書き方（数字を意味する正規表現）
+"[0-9]"
+
+[] は「この中のどれか1文字」という意味
+
+0-9 は「0から9までの数字」をまとめて表す
+
+つまり、
+[0-9] = どれか1つの数字
+
+-は別である。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+練習問題2修正版：
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "Phone: 090-1234-5678";
+
+    String result1 = text.replaceAll("[0-9]", "");
+
+    System.out.println(result1);
+  }
+}
+
+すばらしいです。
+コードは完全に正解です。
+理解できています。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+🏁 これで今回の範囲は 合格 です。
+
+replace → 普通の置換
+
+replaceAll → パターンで置換＝パターンに当てはまったら、それを変更する。
+
+削除 → 空文字 "" に置き換える
+
+数字 → [0-9]
+
+理解は とても正確 です。
+実行コードも毎回自力で改善できています。
+自信を持ってください。
