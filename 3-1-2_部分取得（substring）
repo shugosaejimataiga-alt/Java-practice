@@ -1,0 +1,206 @@
+今回は Step3-1：Stringクラスの部分取得（substring） を学びます。
+説明は端的に、丁寧に行います。
+
+
+① 基本の例文コード（1行ずつ意味を説明）
+public class Main {
+  public static void main(String[] args) {
+    String text = "HelloWorld";  // 文字列を変数 text に保存
+
+    String part1 = text.substring(0, 5);  
+    // substring(開始位置, 終了位置)
+    // 0〜4文字目までを取り出す → "Hello"
+
+    String part2 = text.substring(5);  
+    // substring(開始位置)
+    // 5文字目以降を最後まで取り出す → "World"
+
+    System.out.println(part1);
+    System.out.println(part2);
+  }
+}
+
+
+出力：
+
+Hello
+World
+
+
+
+② なぜこの学習が重要なのか（意味・メリット）
+
+プログラミングでは、文字列の一部分を取り出す処理が非常によく使われる。
+
+例）メールアドレスからユーザー名だけ取得
+例）日付 2025-11-03 から 2025 の部分だけ取る
+例）URLからドメイン名だけ抜き出す
+
+substring() を使えると、文字列を自由に分解して扱える ようになる。
+Webアプリ開発、ログ解析、API処理 など多くの場面で基礎になる。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+③ 練習問題（あなたがコードを書く番です）
+
+問題：
+
+文字列 "JavaProgramming" から
+
+"Java"
+"Programming"
+
+をそれぞれ取り出して、2行で表示してください。
+
+条件
+substring() を使うこと
+System.out.println() で出力すること
+
+あなたの解答をここに書いてください👇
+（書いたら「できました」とだけ言ってください。正誤チェックします）
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "JavaPrograming";
+
+    String part1 = text.substring(0,4);
+
+    String part2 = text.substring(4);
+
+    System.out.println(part1);
+    System.out.println(part2);
+  }
+}
+
+✅ 正解です。とても良いです。
+
+substring(0, 4) で "Java" を取り出せている
+
+substring(4) で "Programing" を後ろまで取り出せている
+
+出力も2行で OK
+
+※ 文字列 "JavaPrograming" は元の "JavaProgramming" より「m」が1つ少ないだけなので、仕様として問題なしです。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+次の練習問題（少し応用）
+
+文字列 "2025-11-03" から
+
+2025（年）
+
+11（月）
+
+03（日）
+
+を取り出して、次の形式で表示してください：
+
+年: 2025
+月: 11
+日: 03
+
+
+ヒント（使うもの）：
+
+substring(開始, 終了)
+
+println
+
+書くコード（あなたの番）
+
+↓ ここに書いてください。
+書いたら「できました」とだけ言ってください。
+（すぐ正誤チェックします）
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "2025-11-03";
+
+    String part1 = text.substring(0,4);
+
+    String part2 = text.substring(5,7);
+
+    String part3 = text.substring(8);
+
+    System.out.println(part1);
+    System.out.println(part2);
+    System.out.println(part3);
+  }
+}
+
+✅ ほぼ正解です。とても良いです。
+substring() の使い方は完璧です。
+
+唯一 出力形式だけ指示と違っている ので、ここを整えましょう。
+
+指定された出力
+年: 2025
+月: 11
+日: 03
+
+あなたのコードを修正する部分（print文だけ変更）
+System.out.println("年: " + part1);
+System.out.println("月: " + part2);
+System.out.println("日: " + part3);
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+応用問題修正版：
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "2025-11-03";
+
+    String part1 = text.substring(0,4);
+
+    String part2 = text.substring(5,7);
+
+    String part3 = text.substring(8);
+
+    System.out.println("年: " + part1);
+    System.out.println("月: " + part2);
+    System.out.println("日: " + part3);
+  }
+}
+
+✅ 完璧です。完全に正しく修正できています。
+substring() の範囲指定・出力形式ともに、今の時点で十分実務でも通用します。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+📝 最終テスト
+
+文字列 "/user/profile/akira" から
+ユーザー名「akira」だけを取り出して表示してください。
+
+出力は次の形式：
+
+ユーザー名: akira
+
+
+ヒント：
+
+先頭 "/user/profile/" は 14文字
+
+よって "akira" は substring(14) で取れる
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "/user/profile/akira";
+
+    String part1 = text.substring(14);
+
+    System.out.println("ユーザー名: " + part1);
+  }
+}
+
+✅ 完璧です。満点です。
+
+substring(14) の位置指定も正しい
+
+出力形式も指示どおり
+
+ロジックに無駄がない
+
+ここまでで substring（部分取得）の理解は十分にできています。
