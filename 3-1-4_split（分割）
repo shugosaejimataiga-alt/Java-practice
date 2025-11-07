@@ -1,0 +1,218 @@
+今回の学習範囲は Stringクラス：split（分割） です。
+表形式は使わず、文章で丁寧に説明します。
+では、授業を始めます。
+
+① 例文コード（基本の書き方）
+public class Main {
+  public static void main(String[] args) {
+    String text = "apple,banana,orange";
+
+    // splitで文字列を分割する
+    String[] fruits = text.split(",");
+
+    // 配列の中身を確認
+    System.out.println(fruits[0]); // apple
+    System.out.println(fruits[1]); // banana
+    System.out.println(fruits[2]); // orange
+  }
+}
+
+
+コードの意味（重要な箇所のみ端的に）
+
+String text = "apple,banana,orange";
+1つの文字列の中に「,」で区切られた情報が入っている。
+
+text.split(",")
+" , " を区切り文字（区切る基準）として、文字列を分割する。
+→ 戻り値は String[]（文字列の配列）
+
+fruits[0] などで、分割後の各要素を取り出せる。
+
+
+
+② なぜこの学習が重要なのか
+
+現実のアプリや開発では、1つの文字列に複数の情報がまとめられていることが非常に多いです。
+
+例：
+
+CSVファイル（データをカンマ区切りで保存する形式）
+
+Webフォームの複数の値
+
+設定データを読み込むとき
+
+ログデータ解析
+
+splitができる＝データを扱える能力がある
+これは、エンジニアにとって確実に必要な基礎スキルです。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+③ 練習問題（あなたが実際に書く番です）
+
+以下の文字列を "-"（ハイフン）で分割して、
+名前・年齢・職業をそれぞれ表示してください。
+
+"Akira-25-Engineer"
+
+出力例（この形になるのが目標）：
+名前: Akira
+年齢: 25
+職業: Engineer
+
+✅ あなたがやること
+
+Javaでコードを書いてください。
+
+そのままここに貼ってください。
+
+私が 正誤チェック と 丁寧なフィードバック を行います。
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "Akira-25-Engineer";
+
+    String[] Words = text.split("-");
+
+    System.out.println(Words[0]);
+    System.out.println(Words[1]);
+    System.out.println(Words[2]);
+  }
+}
+
+🔍 改善ポイント（命名規則）
+
+Javaのルールでは、変数名は基本的に小文字から始めるのが一般的です。
+（クラス名だけが先頭大文字）
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+練習問題修正版：
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "Akira-25-Engineer";
+
+    String[] words = text.split("-");
+
+    System.out.println(words[0]);
+    System.out.println(words[1]);
+    System.out.println(words[2]);
+  }
+}
+
+OKです。
+命名も修正されており、split → 配列 → 出力、すべて正しく使えています。
+この時点で split の基本操作はクリア です。よくできています。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+🎯 最終確認テスト（本範囲の集大成）
+
+次の文字列を カンマ（,）で分割 し、
+指定の形式で出力してください。
+
+"Japan,Tokyo,Shinjuku"
+
+✅ 出力結果の形（この形になるように）
+国: Japan
+都道府県: Tokyo
+市区: Shinjuku
+
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "Japan,Tokyo,Shinjuku";
+
+    String[] placename = text.split(",");
+
+    System.out.println(placename[0]);
+    System.out.println(placename[1]);
+    System.out.println(placename[2]);
+  }
+}
+
+✅ 正誤チェック
+
+split の使い方、配列への代入、要素の取得は 正しくできています。
+理解は問題ありません。とても良いです。
+
+ただし、今回は「表示形式を指定通りにする」ことが最終テストの条件 でしたので、
+表示の部分だけ書き換えてください。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+最終確認テスト修正版：
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "Japan,Tokyo,Shinjuku";
+
+    String[] placename = text.split(",");
+
+    System.out.println("国: " + placename[0]);
+    System.out.println("都道府県: " + placename[1]);
+    System.out.println("市区: " + placename[2]);
+  }
+}
+
+完璧です。
+表示形式までしっかり整っており、最終テストは合格です。
+split（分割）の基本操作は、もう自信を持って大丈夫です。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+🔥 応用問題
+
+次の文字列を 半角スペースで分割 し、
+姓と名に分けて表示してください。
+
+"Kawakami Akira"
+
+✅ 出力形式：
+姓: Kawakami
+名: Akira
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "Kawakami Akira";
+
+    String[] name = text.split("\""\")
+
+    System.out.println("姓: " + name[0]);
+    System.out.println("名: " + name[1]);
+  }
+}
+
+惜しいです。
+分割の部分の書き方だけ ミスがあります。
+
+あなたの書いた部分：
+
+String[] name = text.split("\""\")
+
+これは "" の扱いが崩れてしまっています。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+応用問題修正版：
+
+public class Main {
+  public static void main (String[] args) {
+    String text = "Kawakami Akira";
+
+    String[] name = text.split(" ");
+
+    System.out.println("姓: " + name[0]);
+    System.out.println("名: " + name[1]);
+  }
+}
+
+完璧です。
+split を正しく使えており、表示形式も指定通り。
+理解は十分できています。この範囲は完全にクリアです。
+自信を持ってください。
+
+3-1-4：split（分割）の学習をしました
