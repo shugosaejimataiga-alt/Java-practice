@@ -1,0 +1,206 @@
+🔹 今日学ぶこと
+
+toUpperCase() と toLowerCase()
+これは文字列の 大文字・小文字を変換するためのメソッド です。
+
+
+
+✅ 例文コード（必ず1行ずつ意味を説明します）
+public class Main {
+  public static void main(String[] args) {
+    String text = "Hello World";  
+    // Stringは文字列を扱う型。textという変数に "Hello World" を入れている。
+
+    String upper = text.toUpperCase();  
+    // textに入っている文字列を「すべて大文字」に変換し、新しい変数upperに代入している。
+
+    String lower = text.toLowerCase();  
+    // textに入っている文字列を「すべて小文字」に変換し、新しい変数lowerに代入している。
+
+    System.out.println(upper);  
+    // 変換された大文字の文字列を画面に表示する。
+
+    System.out.println(lower);  
+    // 変換された小文字の文字列を画面に表示する。
+  }
+}
+
+
+
+🔍 なぜこの学習が重要なのか（端的に）
+
+現実の開発では、入力された文字の「表記ゆれ」を整える必要があるためです。
+
+例えば：
+ユーザーが "YES" と入力するか "yes" と入力するかは人によって違う
+
+検索 / ログインチェック / データ比較 の際に、表記揺れがあると正しい判定ができない
+
+大文字か小文字かに依存しない比較ができるようになる
+
+つまり、正確な処理をするためには文字列を統一する必要があるということです。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+🎯 練習問題（あなたが書く番です）
+
+次の条件を満たすプログラムを書いてください：
+
+変数 name に "akira" という文字列を入れる
+
+それを 大文字に変換して表示
+
+さらに 小文字に変換して表示
+
+例）
+AKIRA
+akira
+
+📝 あなたの番です
+
+下にコードを書いてください。
+書いたら、私が 正誤チェック → 改善フィードバック を行います。
+
+どうぞ👇
+
+public class Main {
+  public static void main (String[] args) {
+    String name = "akira";
+
+    String upper = name.toUpperCase();
+
+    String lower = name.toLowerCase();
+
+    System.out.println(upper);
+
+    System.out.println(lower);
+  }
+}
+
+✅ 完璧です。正しく書けています。
+
+String name = "akira"; → 文字列の宣言と代入
+
+toUpperCase() → 大文字変換
+
+toLowerCase() → 小文字変換
+
+System.out.println() → それぞれ表示
+
+どれも意図通りに動作します。
+記述・構造・メソッドの使い方 すべて正しいです。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+🔥 次の練習に進みます
+
+人の名前は、入力されたときにバラバラな場合が多いです。
+
+例：
+
+"AKIRA"
+
+"akira"
+
+"AkIrA"
+
+そこで次の問題です👇
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+🎯 練習問題2
+
+変数 rawName に "AkIrA" を代入してください。
+その文字列を すべて小文字に変換 したあと、
+最初の1文字だけ大文字にする 形式に整えて表示してください。
+
+つまり：
+
+Akira
+
+と表示されればOKです。
+
+public class Main {
+  public static void main (String[] args) {
+    String rawName = "AkIrA";
+
+    String lower = rawName.toLowerCase();
+
+    String text = lower.substring(0,1);
+
+    String upper = text.toUpperCase();
+
+    System.out.println(upper + lower);
+  }
+}
+
+いい感じです。
+あと一歩だけ修正が必要です。
+
+今のコードだと、
+
+System.out.println(upper + lower);
+
+となっているため、
+
+Aakira
+
+のように 最初の文字が2回表示されてしまいます。
+
+理由：
+lower は "akira" のままなので、
+upper + lower → "A" + "akira" → "Aakira" となるためです。
+
+✅ 修正ポイント
+
+lower の 1文字目以降 だけを取り出して足し直します。
+
+lower.substring(1) を使います。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+練習問題2修正版：
+
+public class Main {
+  public static void main (String[] args) {
+    String rawName = "AkIrA";
+
+    String lower = rawName.toLowerCase();
+
+    String text = lower.substring(0,1);
+
+    String upper = text.toUpperCase();
+
+    String lower1 = lower.substring(1); 
+
+    System.out.println(upper + lower1);
+  }
+}
+
+✅ 完璧です。
+今のコードは意図通りに動作します。
+処理の流れ、変数の役割の分け方、substring() の使い方、すべて正確です。
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+🔥 最終確認テスト（短く答えてください）
+
+Q1. 文字列を すべて大文字 に変換するメソッドは？
+解答：toUpperCase
+
+Q2. 文字列を すべて小文字 に変換するメソッドは？
+解答：toLowerCase
+
+
+🎉 これで今回の範囲は「合格」です。
+
+大文字・小文字の統一
+
+部分取り出し（substring）
+
+文字列整形の基本手順
+
+どれも実務で非常によく使います。
+特に ユーザー入力を正しく扱う処理の基盤 になります。
+
+3-1-5：大文字・小文字変換（toUpperCase / toLowerCase）を学習しました
